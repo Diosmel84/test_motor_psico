@@ -448,6 +448,111 @@
       margin-top: 8px;
     }
 
+    /* ========== JUEGO DE ATENCIÓN ========== */
+    .game-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .game-cta-head { display: flex; gap: 14px; align-items: flex-start; }
+    .game-cta-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: grid; place-items: center;
+      flex-shrink: 0;
+    }
+    .game-cta h3 { font-size: 1.05rem; margin-bottom: 4px; }
+    .game-cta p { font-size: .92rem; color: var(--text-muted); }
+    .tag-optional {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 600;
+      color: #0b7a85;
+      background: var(--accent-soft);
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .demo-stimuli {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .demo-stimulus {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 10px;
+      text-align: center;
+      background: #f7fafd;
+    }
+    .demo-stimulus svg { width: 56px; height: 56px; }
+    .demo-stimulus strong { display: block; margin-top: 8px; font-size: .95rem; }
+    .demo-stimulus small { color: var(--text-muted); font-size: .82rem; }
+    .demo-stimulus.go strong { color: var(--primary); }
+    .demo-stimulus.nogo strong { color: var(--high); }
+
+    .game-area {
+      position: relative;
+      height: 300px;
+      border-radius: var(--radius);
+      background: #f4f8fc;
+      border: 2px dashed #c9d7e6;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      transition: background .12s, border-color .12s;
+    }
+    .game-area:focus-visible { outline: 3px solid rgba(30, 95, 168, .35); outline-offset: 2px; }
+    .game-area.pressed { background: var(--primary-soft); border-color: var(--primary); }
+    .stimulus svg { width: 120px; height: 120px; display: block; }
+    .game-message {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+    }
+    .game-hint { text-align: center; font-size: .85rem; color: var(--text-muted); margin-top: 12px; }
+    .game-notice {
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      color: #5c4305;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: .9rem;
+      margin-bottom: 16px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .metric {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      background: #f7fafd;
+    }
+    .metric-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+    .metric-value small { font-size: .85rem; font-weight: 500; color: var(--text-muted); }
+    .metric-label { font-size: .8rem; color: var(--text-muted); margin-top: 2px; }
+    .game-dims .area-row p { font-size: .9rem; color: var(--text-muted); }
+
     /* ========== TABLET / DESKTOP ========== */
     @media (min-width: 600px) {
       .container { padding: 40px 24px 64px; }
@@ -460,6 +565,10 @@
       .actions { grid-template-columns: 1fr 1fr; }
       .kbd-hint { display: inline; }
       .alert { padding: 20px 22px; }
+      .game-cta { flex-direction: row; align-items: center; justify-content: space-between; }
+      .game-cta .btn { flex-shrink: 0; }
+      .game-area { height: 360px; }
+      .metrics { grid-template-columns: repeat(4, 1fr); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -548,6 +657,19 @@
           <p class="start-hint">Responde con sinceridad pensando en las últimas 2 semanas.</p>
         </div>
       </div>
+
+      <div class="card game-cta">
+        <div class="game-cta-head">
+          <div class="game-cta-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
+          <div>
+            <h3>Juego de atención <span class="tag-optional">Opcional · 2 min</span></h3>
+            <p>Una tarea de reacción tipo Go/No-Go para explorar tu atención sostenida y tu control de impulsos.</p>
+          </div>
+        </div>
+        <button type="button" class="btn btn-secondary" data-open-game>Probar el juego</button>
+      </div>
     </section>
 
     <!-- ===================== PANTALLA 2: CUESTIONARIO ===================== -->
@@ -626,6 +748,19 @@
         <ul class="recs" id="recs"></ul>
       </div>
 
+      <div class="card game-cta no-print">
+        <div class="game-cta-head">
+          <div class="game-cta-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
+          <div>
+            <h3>Complementa con el juego de atención <span class="tag-optional">2 min</span></h3>
+            <p>Mide tu tiempo de reacción, tus fallas de atención y tus respuestas impulsivas en una tarea breve.</p>
+          </div>
+        </div>
+        <button type="button" class="btn btn-secondary" data-open-game>Probar el juego</button>
+      </div>
+
       <div class="alert alert-warning" role="note">
         <svg class="alert-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
         <p>
@@ -642,6 +777,114 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
           Imprimir / Guardar PDF
         </button>
+      </div>
+    </section>
+
+    <!-- ===================== PANTALLA 4: JUEGO DE ATENCIÓN ===================== -->
+    <section id="screen-game" class="screen hidden">
+      <!-- Instrucciones -->
+      <div class="card" id="game-intro">
+        <h2 class="section-title" style="font-size:1.3rem">Juego de atención · Go/No-Go</h2>
+        <div class="game-notice hidden" id="game-abort-notice" role="alert"></div>
+        <p class="subtitle" style="color:var(--text-muted)">
+          En el centro de la pantalla irán apareciendo figuras durante medio segundo. Tu tarea es responder
+          <strong>lo más rápido posible</strong> solo cuando aparezca el <strong>círculo azul</strong>, y
+          <strong>no responder</strong> cuando aparezca el cuadrado rojo.
+        </p>
+
+        <div class="demo-stimuli">
+          <div class="demo-stimulus go">
+            <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" fill="#1e5fa8"/></svg>
+            <strong>Círculo azul</strong>
+            <small>¡Responde!</small>
+          </div>
+          <div class="demo-stimulus nogo">
+            <svg viewBox="0 0 120 120" aria-hidden="true"><rect x="12" y="12" width="96" height="96" rx="10" fill="#d64545"/><path d="M38 38 82 82M82 38 38 82" stroke="#fff" stroke-width="12" stroke-linecap="round"/></svg>
+            <strong>Cuadrado rojo</strong>
+            <small>No respondas</small>
+          </div>
+        </div>
+
+        <ul class="info-list">
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a3 3 0 0 1 6 0v5"/><rect x="5" y="11" width="14" height="10" rx="2"/></svg>
+            Para responder, toca el área de juego o pulsa la <strong>barra espaciadora</strong>.
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Son <span id="game-trials-label">60</span> figuras, unos 2 minutos. Busca un lugar tranquilo y no cambies de pestaña durante el juego.
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+            Es una actividad educativa: no detecta ni diagnostica TDAH ni ninguna otra condición.
+          </li>
+        </ul>
+
+        <div class="nav">
+          <button type="button" class="btn btn-secondary" id="btn-game-back">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            Volver
+          </button>
+          <button type="button" class="btn btn-primary" id="btn-game-start">
+            Comenzar el juego
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Partida -->
+      <div class="card hidden" id="game-play">
+        <div class="quiz-top">
+          <span>Figura <strong id="game-current">0</strong> de <strong id="game-total">60</strong></span>
+          <button type="button" class="link-btn" id="btn-game-cancel">Cancelar</button>
+        </div>
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="game-progressbar">
+          <div class="progress-fill" id="game-progress-fill"></div>
+        </div>
+        <div class="game-area" id="game-area" role="button" tabindex="0" aria-label="Área de respuesta: toca o pulsa Espacio al ver el círculo azul">
+          <div class="stimulus" id="game-stimulus" aria-hidden="true"></div>
+          <p class="game-message" id="game-message" aria-live="polite"></p>
+        </div>
+        <p class="game-hint">Responde solo ante el <strong style="color:var(--primary)">círculo azul</strong> · Toca el área o pulsa <strong>Espacio</strong></p>
+      </div>
+
+      <!-- Resultados -->
+      <div id="game-result" class="hidden">
+        <div class="card results-head">
+          <h2>Resultados del juego de atención</h2>
+          <p>Resumen de tu desempeño en la tarea Go/No-Go.</p>
+          <div class="metrics" id="game-metrics"></div>
+        </div>
+
+        <div class="card game-dims">
+          <h3 class="section-title">Interpretación orientativa</h3>
+          <div id="game-dims"></div>
+          <p class="area-score" style="margin-top:14px">
+            Referencias aproximadas para adultos, con fines educativos; no son baremos clínicos.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="section-title">Resumen</h3>
+          <p class="summary-text" id="game-summary"></p>
+        </div>
+
+        <div class="alert alert-warning" role="note">
+          <svg class="alert-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          <p>
+            <strong>Aviso:</strong> este juego es una actividad educativa inspirada en las tareas de ejecución continua que se usan en neuropsicología.
+            <strong>No detecta ni diagnostica TDAH ni ninguna otra condición.</strong> El resultado puede variar por cansancio, distracciones,
+            el dispositivo utilizado o la práctica. El diagnóstico de TDAH requiere una evaluación clínica completa realizada por un profesional.
+          </p>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-game-retry">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            Repetir el juego
+          </button>
+          <button type="button" class="btn btn-secondary" id="btn-game-exit">Volver</button>
+        </div>
       </div>
     </section>
 
@@ -796,7 +1039,8 @@
       const screens = {
         welcome: $('screen-welcome'),
         quiz: $('screen-quiz'),
-        results: $('screen-results')
+        results: $('screen-results'),
+        game: $('screen-game')
       };
       const modeButtons = document.querySelectorAll('.mode');
 
@@ -1155,7 +1399,288 @@
       }
 
       /* =========================================================
-         13. EVENTOS
+         13. JUEGO DE ATENCIÓN (tarea Go/No-Go)
+         ========================================================= */
+      const GAME_CONFIG = {
+        trials: 60,        // figuras totales
+        noGoCount: 15,     // 25 % de figuras "no responder"
+        stimulusMs: 500,   // tiempo visible de cada figura
+        isiMinMs: 900,     // pausa mínima entre figuras
+        isiMaxMs: 1400,    // pausa máxima entre figuras
+        minRtMs: 100       // respuestas más rápidas se consideran anticipaciones
+      };
+
+      const STIMULI = {
+        go: '<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="#1e5fa8"/></svg>',
+        nogo: '<svg viewBox="0 0 120 120"><rect x="12" y="12" width="96" height="96" rx="10" fill="#d64545"/>' +
+          '<path d="M38 38 82 82M82 38 38 82" stroke="#fff" stroke-width="12" stroke-linecap="round"/></svg>'
+      };
+
+      const game = {
+        origin: 'welcome',
+        playing: false,
+        sequence: [],
+        index: -1,
+        trial: null,
+        results: [],
+        timers: []
+      };
+
+      function buildGameSequence() {
+        const seq = [];
+        for (let i = 0; i < GAME_CONFIG.trials; i++) {
+          seq.push(i < GAME_CONFIG.noGoCount ? 'nogo' : 'go');
+        }
+        // Mezcla de Fisher-Yates
+        for (let i = seq.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const tmp = seq[i]; seq[i] = seq[j]; seq[j] = tmp;
+        }
+        // Las dos primeras figuras siempre son "go" para entrar en ritmo
+        for (let k = 0; k < 2; k++) {
+          if (seq[k] === 'nogo') {
+            const swap = seq.indexOf('go', 2);
+            seq[swap] = 'nogo';
+            seq[k] = 'go';
+          }
+        }
+        return seq;
+      }
+
+      function clearGameTimers() {
+        game.timers.forEach(clearTimeout);
+        game.timers = [];
+      }
+
+      function later(fn, ms) {
+        game.timers.push(setTimeout(fn, ms));
+      }
+
+      function showGamePanel(name) {
+        $('game-intro').classList.toggle('hidden', name !== 'intro');
+        $('game-play').classList.toggle('hidden', name !== 'play');
+        $('game-result').classList.toggle('hidden', name !== 'result');
+      }
+
+      function openGame(origin) {
+        game.origin = origin;
+        $('game-abort-notice').classList.add('hidden');
+        $('game-trials-label').textContent = GAME_CONFIG.trials;
+        showGamePanel('intro');
+        showScreen('game');
+      }
+
+      function exitGame() {
+        stopGame();
+        showScreen(game.origin);
+      }
+
+      function startGame() {
+        clearGameTimers();
+        game.sequence = buildGameSequence();
+        game.results = [];
+        game.index = -1;
+        game.trial = null;
+        game.playing = true;
+
+        $('game-total').textContent = GAME_CONFIG.trials;
+        $('game-current').textContent = 0;
+        updateGameProgress();
+        $('game-stimulus').innerHTML = '';
+        showGamePanel('play');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        $('game-area').focus({ preventScroll: true });
+
+        // Cuenta regresiva
+        const msg = $('game-message');
+        [3, 2, 1].forEach((n, i) => later(() => { msg.textContent = n; }, i * 800));
+        later(() => { msg.textContent = ''; nextTrial(); }, 2400);
+      }
+
+      function updateGameProgress() {
+        const done = Math.max(game.index, 0);
+        const percent = Math.round((done / GAME_CONFIG.trials) * 100);
+        $('game-progress-fill').style.width = percent + '%';
+        $('game-progressbar').setAttribute('aria-valuenow', percent);
+      }
+
+      function nextTrial() {
+        game.index++;
+        updateGameProgress();
+        if (game.index >= GAME_CONFIG.trials) {
+          finishGame();
+          return;
+        }
+        const type = game.sequence[game.index];
+        $('game-current').textContent = game.index + 1;
+        $('game-stimulus').innerHTML = STIMULI[type];
+        game.trial = { type: type, onset: performance.now(), responded: false, rt: null };
+
+        const isi = GAME_CONFIG.isiMinMs + Math.random() * (GAME_CONFIG.isiMaxMs - GAME_CONFIG.isiMinMs);
+        later(() => { $('game-stimulus').innerHTML = ''; }, GAME_CONFIG.stimulusMs);
+        later(() => {
+          game.results.push(game.trial);
+          nextTrial();
+        }, GAME_CONFIG.stimulusMs + isi);
+      }
+
+      // La ventana de respuesta abarca la figura y la pausa siguiente
+      function gameRespond() {
+        if (!game.playing || !game.trial || game.trial.responded) return;
+        game.trial.responded = true;
+        game.trial.rt = performance.now() - game.trial.onset;
+
+        const area = $('game-area');
+        area.classList.add('pressed');
+        setTimeout(() => area.classList.remove('pressed'), 120);
+      }
+
+      function stopGame() {
+        clearGameTimers();
+        game.playing = false;
+        game.trial = null;
+        $('game-stimulus').innerHTML = '';
+        $('game-message').textContent = '';
+      }
+
+      function abortGame(message) {
+        stopGame();
+        const notice = $('game-abort-notice');
+        notice.textContent = message;
+        notice.classList.remove('hidden');
+        showGamePanel('intro');
+      }
+
+      function mean(values) {
+        return values.reduce((a, b) => a + b, 0) / values.length;
+      }
+
+      function stdDev(values) {
+        const m = mean(values);
+        return Math.sqrt(values.reduce((acc, v) => acc + (v - m) * (v - m), 0) / values.length);
+      }
+
+      function computeGameResults() {
+        const goTrials = game.results.filter((t) => t.type === 'go');
+        const noGoTrials = game.results.filter((t) => t.type === 'nogo');
+        const hits = goTrials.filter((t) => t.responded && t.rt >= GAME_CONFIG.minRtMs);
+        const anticipations = goTrials.filter((t) => t.responded && t.rt < GAME_CONFIG.minRtMs).length;
+        const omissions = goTrials.filter((t) => !t.responded).length;
+        const commissions = noGoTrials.filter((t) => t.responded).length;
+        const rts = hits.map((t) => t.rt);
+
+        const meanRt = rts.length ? mean(rts) : null;
+        const sdRt = rts.length > 1 ? stdDev(rts) : null;
+
+        return {
+          goTotal: goTrials.length,
+          noGoTotal: noGoTrials.length,
+          hits: hits.length,
+          anticipations: anticipations,
+          omissions: omissions,
+          commissions: commissions,
+          omissionPct: Math.round((omissions / goTrials.length) * 100),
+          commissionPct: Math.round((commissions / noGoTrials.length) * 100),
+          meanRt: meanRt,
+          sdRt: sdRt,
+          cv: meanRt && sdRt !== null ? sdRt / meanRt : null
+        };
+      }
+
+      function rateGame(r) {
+        const dims = [];
+
+        // Atención sostenida: figuras azules sin respuesta
+        let att;
+        if (r.omissionPct <= 5) att = { key: 'low', label: 'Sin dificultades', text: 'Respondiste a casi todos los círculos azules: tu atención se mantuvo estable durante la tarea.' };
+        else if (r.omissionPct <= 15) att = { key: 'mid', label: 'Algunas fallas', text: 'Dejaste pasar algunos círculos azules. Puede reflejar momentos de distracción o de menor vigilancia.' };
+        else att = { key: 'high', label: 'Fallas frecuentes', text: 'Dejaste pasar varios círculos azules, lo que indica dificultad para sostener la atención en esta tarea.' };
+        dims.push(Object.assign({ name: 'Atención sostenida', value: r.omissionPct, detail: r.omissions + ' de ' + r.goTotal + ' círculos sin respuesta (' + r.omissionPct + '%)' }, att));
+
+        // Control de impulsos: respuestas ante el cuadrado rojo
+        let imp;
+        if (r.commissionPct <= 20) imp = { key: 'low', label: 'Adecuado', text: 'Frenaste la respuesta ante la mayoría de los cuadrados rojos: buen control inhibitorio.' };
+        else if (r.commissionPct <= 40) imp = { key: 'mid', label: 'Moderado', text: 'Respondiste a algunos cuadrados rojos. Es habitual cuando se prioriza la velocidad sobre la precisión.' };
+        else imp = { key: 'high', label: 'Impulsividad elevada', text: 'Respondiste a muchos cuadrados rojos, lo que sugiere dificultad para frenar una respuesta ya preparada.' };
+        dims.push(Object.assign({ name: 'Control de impulsos', value: r.commissionPct, detail: r.commissions + ' de ' + r.noGoTotal + ' cuadrados respondidos (' + r.commissionPct + '%)' }, imp));
+
+        // Estabilidad: variabilidad del tiempo de reacción
+        if (r.cv !== null) {
+          const cvPct = Math.round(r.cv * 100);
+          let stab;
+          if (r.cv <= 0.20) stab = { key: 'low', label: 'Estable', text: 'Tus tiempos de reacción fueron regulares a lo largo de la tarea.' };
+          else if (r.cv <= 0.30) stab = { key: 'mid', label: 'Variable', text: 'Tus tiempos de reacción variaron de forma moderada, con algunas respuestas notablemente más lentas.' };
+          else stab = { key: 'high', label: 'Muy variable', text: 'Tus tiempos de reacción fueron muy irregulares. La alta variabilidad suele asociarse a fluctuaciones de la atención.' };
+          dims.push(Object.assign({ name: 'Estabilidad de respuesta', value: Math.min(cvPct * 2, 100), detail: 'Coeficiente de variación: ' + cvPct + '%' }, stab));
+        }
+        return dims;
+      }
+
+      function buildGameSummary(r, dims) {
+        let speed;
+        if (r.meanRt === null) speed = 'No registramos respuestas válidas a los círculos azules, por lo que no fue posible calcular tu velocidad.';
+        else if (r.meanRt < 350) speed = 'Tu velocidad de respuesta fue <strong>rápida</strong> (' + Math.round(r.meanRt) + ' ms de media).';
+        else if (r.meanRt <= 500) speed = 'Tu velocidad de respuesta estuvo <strong>dentro de lo habitual</strong> (' + Math.round(r.meanRt) + ' ms de media).';
+        else speed = 'Tu velocidad de respuesta fue <strong>pausada</strong> (' + Math.round(r.meanRt) + ' ms de media), lo que puede reflejar un estilo cuidadoso o cansancio.';
+
+        const flagged = dims.filter((d) => d.key !== 'low').map((d) => '<strong>' + d.name.toLowerCase() + '</strong>');
+        let body;
+        if (flagged.length === 0) {
+          body = ' En esta partida no se observan dificultades en atención sostenida, control de impulsos ni estabilidad.';
+        } else {
+          body = ' Se observan resultados a revisar en ' + joinList(flagged) + '.';
+        }
+        let extra = '';
+        if (r.anticipations > 0) {
+          extra = ' Además, registramos ' + r.anticipations + (r.anticipations === 1 ? ' respuesta anticipada' : ' respuestas anticipadas') +
+            ' (antes de 100 ms), que no se cuentan en la velocidad.';
+        }
+        return speed + body + extra +
+          ' Recuerda que una sola partida está muy influida por el cansancio, el entorno y el dispositivo; repetirla en otro momento te dará una idea más fiable.';
+      }
+
+      function finishGame() {
+        stopGame();
+        const r = computeGameResults();
+        const dims = rateGame(r);
+
+        const metrics = [
+          { value: r.meanRt === null ? '—' : Math.round(r.meanRt) + '<small> ms</small>', label: 'Tiempo de reacción medio' },
+          { value: r.hits + '<small> / ' + r.goTotal + '</small>', label: 'Aciertos (círculos azules)' },
+          { value: r.omissions, label: 'Omisiones (círculos sin respuesta)' },
+          { value: r.commissions + '<small> / ' + r.noGoTotal + '</small>', label: 'Errores de impulsividad' }
+        ];
+        $('game-metrics').innerHTML = metrics.map((m) =>
+          '<div class="metric"><div class="metric-value">' + m.value + '</div><div class="metric-label">' + m.label + '</div></div>'
+        ).join('');
+
+        $('game-dims').innerHTML = dims.map((d) =>
+          '<div class="area-row">' +
+            '<div class="area-head">' +
+              '<span class="area-name">' + escapeHTML(d.name) + '</span>' +
+              '<span class="level ' + d.key + '">' + escapeHTML(d.label) + '</span>' +
+            '</div>' +
+            '<div class="bar" role="img" aria-label="' + escapeHTML(d.name) + ': ' + escapeHTML(d.label) + '">' +
+              '<div class="bar-fill ' + d.key + '" data-width="' + Math.max(d.value, 2) + '"></div>' +
+            '</div>' +
+            '<div class="area-score">' + escapeHTML(d.detail) + '</div>' +
+            '<p style="margin-top:6px">' + escapeHTML(d.text) + '</p>' +
+          '</div>'
+        ).join('');
+
+        $('game-summary').innerHTML = buildGameSummary(r, dims);
+        showGamePanel('result');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        setTimeout(() => {
+          document.querySelectorAll('#game-dims .bar-fill').forEach((el) => {
+            el.style.width = el.dataset.width + '%';
+          });
+        }, 80);
+      }
+
+      /* =========================================================
+         14. EVENTOS
          ========================================================= */
       modeButtons.forEach((btn) => {
         btn.addEventListener('click', () => selectMode(btn.dataset.mode));
@@ -1169,6 +1694,36 @@
         const answered = state.answers.some((a) => a !== null);
         if (!answered || window.confirm('¿Seguro que deseas salir? Se perderán tus respuestas.')) {
           resetTest();
+        }
+      });
+
+      // Juego de atención
+      document.querySelectorAll('[data-open-game]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          openGame(screens.results.classList.contains('hidden') ? 'welcome' : 'results');
+        });
+      });
+      $('btn-game-start').addEventListener('click', startGame);
+      $('btn-game-retry').addEventListener('click', startGame);
+      $('btn-game-back').addEventListener('click', exitGame);
+      $('btn-game-exit').addEventListener('click', exitGame);
+      $('btn-game-cancel').addEventListener('click', () => {
+        stopGame();
+        showGamePanel('intro');
+      });
+      $('game-area').addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        gameRespond();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (!game.playing || (e.code !== 'Space' && e.key !== ' ')) return;
+        e.preventDefault();
+        if (!e.repeat) gameRespond();
+      });
+      // Cambiar de pestaña invalida los tiempos: se interrumpe la partida
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden && game.playing) {
+          abortGame('La partida se interrumpió porque cambiaste de pestaña o de aplicación. Para que los tiempos sean válidos, el juego debe hacerse sin interrupciones.');
         }
       });
 

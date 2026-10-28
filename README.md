@@ -27,6 +27,7 @@ Aplicación web de página única que aplica un **test psicotécnico de cribado*
   - aviso legal destacado,
   - alerta de ayuda inmediata si se indican pensamientos de autolesión,
   - opción de imprimir o guardar como PDF.
+- **Juego de atención (opcional, ~2 min):** tarea Go/No-Go de 60 figuras (75 % "responder", 25 % "no responder"). Mide tiempo de reacción medio, omisiones (atención sostenida), errores de impulsividad (control inhibitorio) y variabilidad de respuesta. Es educativo: no detecta ni diagnostica TDAH.
 - **Privacidad:** todo se procesa en el navegador; no se envía ningún dato a un servidor.
 - **Diseño responsivo** (mobile-first) y accesible: roles ARIA, foco visible y respeto por `prefers-reduced-motion`.
 
