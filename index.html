@@ -123,9 +123,11 @@
     .modes { display: grid; gap: 12px; }
     .mode {
       position: relative;
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 1fr;
       align-items: center;
-      gap: 14px;
+      column-gap: 14px;
+      row-gap: 8px;
       width: 100%;
       text-align: left;
       background: #fff;
@@ -167,6 +169,8 @@
       padding: 4px 10px;
       white-space: nowrap;
       flex-shrink: 0;
+      grid-column: 2;
+      justify-self: start;
     }
     .mode.selected .mode-count { background: #fff; }
     .mode.featured { border-color: #9fd9de; }
@@ -427,6 +431,7 @@
       .container { padding: 40px 24px 64px; }
       .card { padding: 30px 30px; }
       .hero h1 { font-size: 1.95rem; }
+      .mode { display: flex; }
       .question-text { font-size: 1.3rem; }
       .nav .btn { flex: 0 0 auto; min-width: 150px; }
       .nav { justify-content: space-between; }
@@ -641,12 +646,12 @@
         },
         atencion: {
           name: 'Atención, Organización e Hiperactividad',
-          short: 'atención y organización',
+          short: 'atención',
           color: '#0fa3b1'
         },
         estres: {
           name: 'Estrés, Sobrecarga y Somatización',
-          short: 'estrés y somatización',
+          short: 'estrés',
           color: '#2f7d6d'
         }
       };
@@ -789,10 +794,6 @@
         })[c]);
       }
 
-      function capitalize(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-      }
-
       // Une una lista en lenguaje natural: "a", "a y b", "a, b y c"
       function joinList(items) {
         if (items.length === 0) return '';
@@ -863,7 +864,7 @@
         tag.style.color = area.color;
         tag.style.background = area.color + '14';
         $('area-name').textContent = area.name;
-        $('question-text').textContent = capitalize(q.text.replace(/^¿/, '¿'));
+        $('question-text').textContent = q.text;
 
         const optionsEl = $('options');
         optionsEl.innerHTML = '';
@@ -1006,11 +1007,17 @@
           text += parts.join(', ') + ', pero ' + last + '. ';
         }
 
-        // Área predominante
-        const sorted = AREA_ORDER.slice().sort((a, b) => areas[b].percent - areas[a].percent);
-        const top = sorted[0];
-        text += 'La dimensión con mayor carga sintomática es <strong>' + AREAS[top].name.toLowerCase() +
-          '</strong> (' + areas[top].percent + '% de la puntuación máxima). ';
+        // Área(s) predominante(s); si todas empatan no se destaca ninguna
+        const maxPercent = Math.max.apply(null, AREA_ORDER.map((a) => areas[a].percent));
+        const tops = AREA_ORDER.filter((a) => areas[a].percent === maxPercent);
+        const topNames = tops.map((a) => '<strong>' + AREAS[a].short + '</strong>');
+        if (tops.length === 1) {
+          text += 'La dimensión con mayor carga sintomática es <strong>' + AREAS[tops[0]].name.toLowerCase() + '</strong>' +
+            ' (' + maxPercent + '% de la puntuación máxima). ';
+        } else if (tops.length < AREA_ORDER.length) {
+          text += 'Las dimensiones con mayor carga sintomática son ' + joinList(topNames) +
+            ' (' + maxPercent + '% de la puntuación máxima cada una). ';
+        }
 
         if (groups.high.length >= 2) {
           text += 'La coexistencia de varias áreas elevadas puede indicar un malestar generalizado que probablemente esté interfiriendo en tu vida diaria; ' +
@@ -1103,13 +1110,11 @@
         showScreen('results');
 
         // Animación de las barras
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            document.querySelectorAll('.bar-fill').forEach((el) => {
-              el.style.width = el.dataset.width + '%';
-            });
-          }, 80);
-        });
+        setTimeout(() => {
+          document.querySelectorAll('.bar-fill').forEach((el) => {
+            el.style.width = el.dataset.width + '%';
+          });
+        }, 80);
       }
 
       /* =========================================================
