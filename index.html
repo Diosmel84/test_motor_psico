@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test de Evaluación de Síntomas · DSM-5</title>
+  <meta name="description" content="Test psicotécnico de cribado basado en dimensiones sintomáticas del DSM-5. Herramienta orientativa y educativa.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========== VARIABLES ========== */
+    :root {
+      --primary: #1e5fa8;
+      --primary-dark: #154a85;
+      --primary-soft: #e8f1fb;
+      --accent: #0fa3b1;
+      --accent-soft: #e3f6f7;
+      --text: #1f2a37;
+      --text-muted: #5b6b7d;
+      --border: #dde4ec;
+      --bg: #f3f6fa;
+      --card: #ffffff;
+      --low: #2e9e5b;
+      --mid: #e8962e;
+      --high: #d64545;
+      --warn-bg: #fff8e6;
+      --warn-border: #f0b429;
+      --danger-bg: #fdecec;
+      --radius: 14px;
+      --shadow: 0 1px 3px rgba(16, 42, 67, .06), 0 8px 24px rgba(16, 42, 67, .06);
+      --shadow-hover: 0 4px 10px rgba(16, 42, 67, .08), 0 14px 32px rgba(16, 42, 67, .10);
+    }
+
+    /* ========== BASE (Mobile-First) ========== */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(180deg, #eaf2fb 0%, var(--bg) 320px);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 20px 16px 48px;
+    }
+    h1, h2, h3 { line-height: 1.25; margin: 0; }
+    p { margin: 0; }
+    button { font-family: inherit; }
+
+    .hidden { display: none !important; }
+    .screen { animation: fadeIn .35s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* ========== HEADER ========== */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: .95rem;
+    }
+    .brand-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: grid; place-items: center;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    /* ========== CARD ========== */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px 18px;
+      margin-bottom: 18px;
+    }
+
+    /* ========== WELCOME ========== */
+    .hero h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .hero h1 span { color: var(--primary); }
+    .hero .subtitle { color: var(--text-muted); font-size: .98rem; }
+    .info-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+    .info-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: .92rem;
+      color: var(--text-muted);
+    }
+    .info-list li svg { flex-shrink: 0; color: var(--accent); margin-top: 2px; }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .modes { display: grid; gap: 12px; }
+    .mode {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      text-align: left;
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: border-color .2s, box-shadow .2s, transform .2s, background .2s;
+      color: inherit;
+      font-size: 1rem;
+    }
+    .mode:hover { border-color: #b7cbe2; box-shadow: var(--shadow-hover); transform: translateY(-1px); }
+    .mode:focus-visible { outline: 3px solid rgba(30, 95, 168, .35); outline-offset: 2px; }
+    .mode.selected { border-color: var(--primary); background: var(--primary-soft); }
+    .mode-radio {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 2px solid #b4c2d1;
+      flex-shrink: 0;
+      display: grid; place-items: center;
+      transition: border-color .2s;
+    }
+    .mode.selected .mode-radio { border-color: var(--primary); }
+    .mode.selected .mode-radio::after {
+      content: "";
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+    .mode-body { flex: 1; min-width: 0; }
+    .mode-name { font-weight: 600; display: block; }
+    .mode-desc { font-size: .88rem; color: var(--text-muted); display: block; margin-top: 2px; }
+    .mode-count {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-soft);
+      border-radius: 999px;
+      padding: 4px 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .mode.selected .mode-count { background: #fff; }
+    .mode.featured { border-color: #9fd9de; }
+    .mode.featured.selected { border-color: var(--accent); background: var(--accent-soft); }
+    .mode.featured.selected .mode-radio { border-color: var(--accent); }
+    .mode.featured.selected .mode-radio::after { background: var(--accent); }
+    .badge {
+      position: absolute;
+      top: -11px;
+      right: 14px;
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      box-shadow: 0 2px 6px rgba(15, 163, 177, .3);
+    }
+    .featured-note {
+      display: block;
+      margin-top: 6px;
+      font-size: .82rem;
+      color: #0b7a85;
+      font-weight: 500;
+    }
+
+    /* ========== BUTTONS ========== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 22px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, box-shadow .2s, transform .15s, opacity .2s, color .2s;
+      min-height: 48px;
+    }
+    .btn:focus-visible { outline: 3px solid rgba(30, 95, 168, .35); outline-offset: 2px; }
+    .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 2px 8px rgba(30, 95, 168, .25); }
+    .btn-primary:hover:not(:disabled) { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(30, 95, 168, .3); }
+    .btn-secondary { background: #fff; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover:not(:disabled) { background: #f4f7fb; border-color: #c4d1df; }
+    .btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
+    .btn-block { width: 100%; }
+    .start-row { margin-top: 20px; }
+    .start-hint { text-align: center; font-size: .82rem; color: var(--text-muted); margin-top: 10px; }
+
+    /* ========== QUIZ ========== */
+    .quiz-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: .88rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .quiz-top strong { color: var(--text); }
+    .progress {
+      height: 8px;
+      background: #e3e9f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 999px;
+      transition: width .35s ease;
+    }
+    .area-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-soft);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    .area-tag .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+    .timeframe { font-size: .85rem; color: var(--text-muted); margin-bottom: 6px; }
+    .question-text {
+      font-size: 1.18rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .options { display: grid; gap: 10px; }
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      text-align: left;
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 14px;
+      cursor: pointer;
+      font-size: .97rem;
+      color: var(--text);
+      transition: border-color .2s, background .2s, box-shadow .2s;
+    }
+    .option:hover { border-color: #a9c1dc; background: #f8fbff; }
+    .option:focus-visible { outline: 3px solid rgba(30, 95, 168, .35); outline-offset: 2px; }
+    .option.selected { border-color: var(--primary); background: var(--primary-soft); box-shadow: 0 2px 8px rgba(30, 95, 168, .12); }
+    .option-key {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      background: #eef2f7;
+      color: var(--text-muted);
+      display: grid; place-items: center;
+      font-weight: 700;
+      font-size: .9rem;
+      flex-shrink: 0;
+      transition: background .2s, color .2s;
+    }
+    .option.selected .option-key { background: var(--primary); color: #fff; }
+    .option-label strong { display: block; font-weight: 600; }
+    .option-label small { color: var(--text-muted); font-size: .84rem; }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+    }
+    .nav .btn { flex: 1; }
+    .auto-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 16px;
+      font-size: .85rem;
+      color: var(--text-muted);
+    }
+    .switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+    .switch input { width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; }
+    .link-btn {
+      background: none; border: none; padding: 4px 0;
+      color: var(--text-muted); font-size: .85rem; cursor: pointer; text-decoration: underline;
+    }
+    .link-btn:hover { color: var(--high); }
+    .kbd-hint { display: none; }
+
+    /* ========== RESULTS ========== */
+    .results-head h2 { font-size: 1.4rem; margin-bottom: 6px; }
+    .results-head p { color: var(--text-muted); font-size: .92rem; }
+    .meta-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .chip {
+      font-size: .78rem;
+      font-weight: 500;
+      background: #eef2f7;
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .area-row { padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .area-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .area-row:first-of-type { padding-top: 0; }
+    .area-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .area-name { font-weight: 600; font-size: .97rem; }
+    .level {
+      font-size: .78rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .level.low { background: #e5f5ec; color: var(--low); }
+    .level.mid { background: #fdf1e1; color: #b86e12; }
+    .level.high { background: #fbe6e6; color: var(--high); }
+    .bar { height: 10px; background: #e8edf3; border-radius: 999px; overflow: hidden; }
+    .bar-fill { height: 100%; width: 0; border-radius: 999px; transition: width .9s cubic-bezier(.2, .8, .2, 1); }
+    .bar-fill.low { background: linear-gradient(90deg, #4cc27f, var(--low)); }
+    .bar-fill.mid { background: linear-gradient(90deg, #f3b54f, var(--mid)); }
+    .bar-fill.high { background: linear-gradient(90deg, #ec6c6c, var(--high)); }
+    .area-score { font-size: .8rem; color: var(--text-muted); margin-top: 6px; }
+
+    .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 16px; font-size: .78rem; color: var(--text-muted); }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+    .summary-text { font-size: .97rem; color: var(--text); }
+    .summary-text strong { color: var(--primary-dark); }
+
+    .recs { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    .recs li {
+      display: flex;
+      gap: 12px;
+      background: #f7fafd;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: .93rem;
+    }
+    .recs .rec-icon {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: grid; place-items: center;
+      flex-shrink: 0;
+    }
+    .recs strong { display: block; margin-bottom: 2px; }
+    .recs p { color: var(--text-muted); }
+
+    .alert {
+      display: flex;
+      gap: 14px;
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      margin-bottom: 18px;
+      font-size: .93rem;
+    }
+    .alert-icon { flex-shrink: 0; margin-top: 1px; }
+    .alert-warning {
+      background: var(--warn-bg);
+      border: 2px solid var(--warn-border);
+      color: #5c4305;
+    }
+    .alert-warning .alert-icon { color: #c98a00; }
+    .alert-danger {
+      background: var(--danger-bg);
+      border: 2px solid var(--high);
+      color: #6b1d1d;
+    }
+    .alert-danger .alert-icon { color: var(--high); }
+    .alert h3 { font-size: 1rem; margin-bottom: 6px; }
+
+    .actions { display: grid; gap: 10px; }
+
+    footer {
+      text-align: center;
+      font-size: .78rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    /* ========== TABLET / DESKTOP ========== */
+    @media (min-width: 600px) {
+      .container { padding: 40px 24px 64px; }
+      .card { padding: 30px 30px; }
+      .hero h1 { font-size: 1.95rem; }
+      .question-text { font-size: 1.3rem; }
+      .nav .btn { flex: 0 0 auto; min-width: 150px; }
+      .nav { justify-content: space-between; }
+      .actions { grid-template-columns: 1fr 1fr; }
+      .kbd-hint { display: inline; }
+      .alert { padding: 20px 22px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .no-print { display: none !important; }
+      .card { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>
+      </div>
+      Evaluación de Bienestar Psicológico
+    </div>
+
+    <!-- ===================== PANTALLA 1: BIENVENIDA ===================== -->
+    <section id="screen-welcome" class="screen">
+      <div class="card hero">
+        <h1>Test de Evaluación de Síntomas <span>· Basado en Criterios DSM-5</span></h1>
+        <p class="subtitle">
+          Responderás una serie de preguntas sobre cómo te has sentido durante las <strong>últimas dos semanas</strong>.
+          Al finalizar recibirás un informe orientativo con tu nivel de presencia sintomática en cuatro áreas:
+          ansiedad, estado de ánimo, atención y estrés.
+        </p>
+        <ul class="info-list">
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Las preguntas se muestran de una en una. Puedes volver atrás para corregir cualquier respuesta.
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Tus respuestas no se envían a ningún servidor: todo se procesa en tu navegador.
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+            Es una herramienta de cribado orientativa: no reemplaza un diagnóstico profesional.
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">Elige la modalidad del test</h2>
+        <div class="modes" role="radiogroup" aria-label="Modalidad del test">
+          <button type="button" class="mode" role="radio" aria-checked="false" data-mode="rapido">
+            <span class="mode-radio" aria-hidden="true"></span>
+            <span class="mode-body">
+              <span class="mode-name">Modo Rápido</span>
+              <span class="mode-desc">Despistaje veloz para obtener una visión muy general. ~1 minuto.</span>
+            </span>
+            <span class="mode-count">6 preguntas</span>
+          </button>
+
+          <button type="button" class="mode" role="radio" aria-checked="false" data-mode="intermedio">
+            <span class="mode-radio" aria-hidden="true"></span>
+            <span class="mode-body">
+              <span class="mode-name">Modo Intermedio</span>
+              <span class="mode-desc">Equilibrio entre tiempo y precisión. ~3 minutos.</span>
+            </span>
+            <span class="mode-count">15 preguntas</span>
+          </button>
+
+          <button type="button" class="mode featured selected" role="radio" aria-checked="true" data-mode="completo">
+            <span class="badge">★ Recomendado · Mayor precisión</span>
+            <span class="mode-radio" aria-hidden="true"></span>
+            <span class="mode-body">
+              <span class="mode-name">Modo Completo / Exhaustivo</span>
+              <span class="mode-desc">Evaluación amplia de todos los criterios sintomáticos. ~6 minutos.</span>
+              <span class="featured-note">Este modo ofrece la mejor aproximación diagnóstica, al evaluar un espectro más amplio y representativo de criterios sintomáticos.</span>
+            </span>
+            <span class="mode-count">30 preguntas</span>
+          </button>
+        </div>
+
+        <div class="start-row">
+          <button type="button" id="btn-start" class="btn btn-primary btn-block">
+            Comenzar el test
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+          <p class="start-hint">Responde con sinceridad pensando en las últimas 2 semanas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PANTALLA 2: CUESTIONARIO ===================== -->
+    <section id="screen-quiz" class="screen hidden">
+      <div class="card">
+        <div class="quiz-top">
+          <span>Pregunta <strong id="q-current">1</strong> de <strong id="q-total">30</strong></span>
+          <span><strong id="q-percent">0%</strong> completado</span>
+        </div>
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressbar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <div class="area-tag" id="area-tag"><span class="dot"></span><span id="area-name">Área</span></div>
+        <p class="timeframe">Durante las últimas 2 semanas, ¿con qué frecuencia…</p>
+        <h2 class="question-text" id="question-text">Pregunta</h2>
+
+        <div class="options" id="options" role="radiogroup" aria-labelledby="question-text"></div>
+
+        <div class="nav">
+          <button type="button" class="btn btn-secondary" id="btn-prev">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            Anterior
+          </button>
+          <button type="button" class="btn btn-primary" id="btn-next" disabled>
+            <span id="btn-next-label">Siguiente</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="auto-row">
+          <label class="switch">
+            <input type="checkbox" id="auto-advance" checked>
+            Avanzar automáticamente <span class="kbd-hint">&nbsp;(atajos: teclas 1–4)</span>
+          </label>
+          <button type="button" class="link-btn" id="btn-cancel">Salir del test</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PANTALLA 3: INFORME ===================== -->
+    <section id="screen-results" class="screen hidden">
+      <div class="card results-head">
+        <h2>Informe de resultados</h2>
+        <p>Resumen sintético de tus respuestas organizado por dimensiones sintomáticas.</p>
+        <div class="meta-chips" id="meta-chips"></div>
+      </div>
+
+      <div id="risk-alert" class="alert alert-danger hidden" role="alert">
+        <svg class="alert-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        <div>
+          <h3>No estás solo/a: pide ayuda ahora</h3>
+          <p>Indicaste haber tenido pensamientos de que estarías mejor muerto/a o de hacerte daño. Esto merece atención inmediata.
+            Habla hoy mismo con alguien de confianza y contacta a un profesional de la salud mental. Si sientes que puedes ponerte en peligro,
+            llama a los <strong>servicios de emergencia de tu país (por ejemplo, 911)</strong> o a la <strong>línea de prevención del suicidio</strong> de tu localidad, o acude a la guardia del hospital más cercano.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="section-title">Puntuación por áreas</h3>
+        <div id="area-results"></div>
+        <div class="legend">
+          <span><i style="background:var(--low)"></i>Bajo (0–33%)</span>
+          <span><i style="background:var(--mid)"></i>Moderado (34–59%)</span>
+          <span><i style="background:var(--high)"></i>Elevado (60–100%)</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="section-title">Resumen sintético</h3>
+        <p class="summary-text" id="summary-text"></p>
+      </div>
+
+      <div class="card">
+        <h3 class="section-title">Recomendaciones prácticas</h3>
+        <ul class="recs" id="recs"></ul>
+      </div>
+
+      <div class="alert alert-warning" role="note">
+        <svg class="alert-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+        <p>
+          <strong>Aviso Importante:</strong> Aunque esta herramienta utiliza indicadores y criterios de tamizaje basados en el manual DSM-5, los resultados obtenidos son de carácter puramente informativo, orientativo y educativo. <strong>Este test NO constituye un diagnóstico clínico, no es concluyente y bajo ninguna circunstancia sustituye la evaluación, diagnóstico o tratamiento de un profesional de la salud mental cualificado.</strong> Si experimentas malestar o interferencia en tu vida diaria, te recomendamos consultar a un psicólogo o psiquiatra.
+        </p>
+      </div>
+
+      <div class="actions no-print">
+        <button type="button" class="btn btn-primary" id="btn-restart">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          Realizar otra evaluación
+        </button>
+        <button type="button" class="btn btn-secondary" id="btn-print">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir / Guardar PDF
+        </button>
+      </div>
+    </section>
+
+    <footer>Herramienta educativa de cribado · No es un instrumento diagnóstico</footer>
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* =========================================================
+         1. CONFIGURACIÓN: ÁREAS, ESCALA Y MODOS
+         ========================================================= */
+      const AREAS = {
+        ansiedad: {
+          name: 'Ansiedad y Carga Temorosa',
+          short: 'ansiedad',
+          color: '#1e5fa8'
+        },
+        animo: {
+          name: 'Estado de Ánimo y Depresión',
+          short: 'estado de ánimo',
+          color: '#5a4fcf'
+        },
+        atencion: {
+          name: 'Atención, Organización e Hiperactividad',
+          short: 'atención y organización',
+          color: '#0fa3b1'
+        },
+        estres: {
+          name: 'Estrés, Sobrecarga y Somatización',
+          short: 'estrés y somatización',
+          color: '#2f7d6d'
+        }
+      };
+      const AREA_ORDER = ['ansiedad', 'animo', 'atencion', 'estres'];
+
+      const SCALE = [
+        { value: 0, label: 'Nunca / Casi nunca', hint: 'No me ha ocurrido o casi nunca' },
+        { value: 1, label: 'A veces', hint: 'Días puntuales' },
+        { value: 2, label: 'Con frecuencia', hint: 'Más de la mitad de los días' },
+        { value: 3, label: 'Casi siempre', hint: 'Todos o casi todos los días' }
+      ];
+
+      // Cuántas preguntas de cada área se toman en cada modo
+      const MODES = {
+        rapido:     { name: 'Modo Rápido',      perArea: { ansiedad: 2, animo: 2, atencion: 1, estres: 1 } },
+        intermedio: { name: 'Modo Intermedio',  perArea: { ansiedad: 4, animo: 4, atencion: 4, estres: 3 } },
+        completo:   { name: 'Modo Completo',    perArea: { ansiedad: 8, animo: 8, atencion: 7, estres: 7 } }
+      };
+
+      /* =========================================================
+         2. BANCO DE PREGUNTAS (ordenadas por relevancia clínica:
+            las primeras de cada área son los indicadores nucleares)
+         ========================================================= */
+      const QUESTION_BANK = {
+        ansiedad: [
+          { id: 'ans1', text: '¿te has sentido nervioso/a, ansioso/a o con los nervios de punta?' },
+          { id: 'ans2', text: '¿te ha resultado difícil controlar o detener tus preocupaciones?' },
+          { id: 'ans3', text: '¿te has preocupado en exceso por distintos asuntos (trabajo, estudios, salud, familia, dinero)?' },
+          { id: 'ans4', text: '¿has sentido tanta inquietud que te ha costado quedarte quieto/a o relajarte?' },
+          { id: 'ans5', text: '¿has tenido la sensación de que algo terrible podría ocurrir?' },
+          { id: 'ans6', text: '¿has evitado situaciones, lugares o actividades por miedo o ansiedad?' },
+          { id: 'ans7', text: '¿has tenido episodios repentinos de miedo intenso con palpitaciones, falta de aire, temblores o mareo?' },
+          { id: 'ans8', text: '¿te has sentido muy incómodo/a o temeroso/a en situaciones sociales por miedo a ser juzgado/a o criticado/a?' }
+        ],
+        animo: [
+          { id: 'ani1', text: '¿has sentido poco interés o placer en hacer cosas que antes disfrutabas?' },
+          { id: 'ani2', text: '¿te has sentido decaído/a, triste, vacío/a o sin esperanza?' },
+          { id: 'ani3', text: '¿has sentido cansancio o falta de energía durante la mayor parte del día?' },
+          { id: 'ani4', text: '¿te has sentido mal contigo mismo/a, inútil, o con una culpa excesiva?' },
+          { id: 'ani5', text: '¿has tenido problemas de sueño (dificultad para dormir, despertares frecuentes o dormir demasiado)?' },
+          { id: 'ani6', text: '¿has notado cambios en el apetito (comer mucho menos o mucho más de lo habitual)?' },
+          { id: 'ani7', text: '¿te has movido o hablado más lento de lo habitual, o por el contrario has estado tan agitado/a que otros lo notaron?' },
+          { id: 'ani8', text: '¿has tenido pensamientos de que estarías mejor muerto/a o de hacerte daño de alguna forma?', risk: true }
+        ],
+        atencion: [
+          { id: 'ate1', text: '¿te ha costado mantener la atención en tareas, lecturas o conversaciones prolongadas?' },
+          { id: 'ate2', text: '¿te has distraído fácilmente con estímulos externos o con pensamientos ajenos a lo que estabas haciendo?' },
+          { id: 'ate3', text: '¿has tenido dificultades para organizar tareas, plazos o actividades?' },
+          { id: 'ate4', text: '¿has olvidado citas u obligaciones, o perdido objetos necesarios (llaves, teléfono, documentos)?' },
+          { id: 'ate5', text: '¿has evitado o postergado tareas que requieren un esfuerzo mental sostenido?' },
+          { id: 'ate6', text: '¿te ha costado permanecer sentado/a o has sentido la necesidad de moverte constantemente?' },
+          { id: 'ate7', text: '¿has interrumpido a otros, respondido antes de que terminen de preguntar o te ha costado esperar tu turno?' }
+        ],
+        estres: [
+          { id: 'est1', text: '¿te has sentido sobrepasado/a por tus responsabilidades u obligaciones?' },
+          { id: 'est2', text: '¿has tenido dolores de cabeza, de espalda o tensión muscular sin una causa médica clara?' },
+          { id: 'est3', text: '¿has estado irritable o con poca tolerancia ante pequeñas contrariedades?' },
+          { id: 'est4', text: '¿has tenido molestias digestivas (dolor de estómago, náuseas, intestino irritable) en momentos de tensión?' },
+          { id: 'est5', text: '¿te ha costado desconectar o relajarte al terminar tu jornada?' },
+          { id: 'est6', text: '¿te has preocupado de forma persistente por tener una enfermedad o por tus síntomas físicos?' },
+          { id: 'est7', text: '¿has sentido un agotamiento físico o mental que no mejora con el descanso?' }
+        ]
+      };
+
+      /* =========================================================
+         3. RECOMENDACIONES
+         ========================================================= */
+      const RECOMMENDATIONS = {
+        ansiedad: {
+          title: 'Regula tu respuesta de ansiedad',
+          text: 'Practica 5 minutos de respiración diafragmática (inhala 4 s, exhala 6 s) dos veces al día y reserva un "tiempo de preocupación" de 15 minutos para anotar tus inquietudes en lugar de rumiarlas todo el día.'
+        },
+        animo: {
+          title: 'Activa tu ánimo con pequeñas acciones',
+          text: 'Planifica cada día al menos una actividad agradable y una que te dé sensación de logro, aunque sean breves. Mantén el contacto con personas de confianza y evita aislarte.'
+        },
+        atencion: {
+          title: 'Organiza tu entorno y tu tiempo',
+          text: 'Divide las tareas grandes en pasos concretos, usa una agenda o recordatorios en el teléfono y trabaja en bloques de 25 minutos con pausas cortas, alejando el móvil y otras distracciones.'
+        },
+        estres: {
+          title: 'Reduce la sobrecarga y cuida tu cuerpo',
+          text: 'Prioriza tus obligaciones y aprende a decir "no" a lo no esencial. Incorpora pausas activas, estiramientos o una caminata diaria de 20–30 minutos para liberar tensión física.'
+        },
+        general: [
+          {
+            title: 'Cuida tu higiene del sueño',
+            text: 'Intenta acostarte y levantarte a la misma hora, evita pantallas 30–60 minutos antes de dormir y limita la cafeína por la tarde.'
+          },
+          {
+            title: 'Mantén hábitos protectores',
+            text: 'La actividad física regular, una alimentación equilibrada y el contacto social frecuente son factores que protegen tu bienestar emocional.'
+          },
+          {
+            title: 'Haz seguimiento de tu bienestar',
+            text: 'Repite esta evaluación dentro de unas semanas para observar cambios. Si notas que el malestar aumenta o interfiere en tu día a día, consulta a un profesional.'
+          }
+        ],
+        professional: {
+          title: 'Consulta con un profesional',
+          text: 'Dado que algunas áreas muestran una presencia elevada, es recomendable solicitar una evaluación con un psicólogo o psiquiatra, que podrá valorar tu situación de forma integral.'
+        }
+      };
+
+      /* =========================================================
+         4. ESTADO DE LA APLICACIÓN
+         ========================================================= */
+      const state = {
+        mode: 'completo',
+        questions: [],
+        answers: [],
+        index: 0
+      };
+      let advanceTimer = null;
+
+      /* =========================================================
+         5. REFERENCIAS AL DOM
+         ========================================================= */
+      const $ = (id) => document.getElementById(id);
+      const screens = {
+        welcome: $('screen-welcome'),
+        quiz: $('screen-quiz'),
+        results: $('screen-results')
+      };
+      const modeButtons = document.querySelectorAll('.mode');
+
+      /* =========================================================
+         6. UTILIDADES
+         ========================================================= */
+      function showScreen(name) {
+        Object.keys(screens).forEach((key) => {
+          screens[key].classList.toggle('hidden', key !== name);
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function escapeHTML(str) {
+        return String(str).replace(/[&<>"']/g, (c) => ({
+          '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        })[c]);
+      }
+
+      function capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+
+      // Une una lista en lenguaje natural: "a", "a y b", "a, b y c"
+      function joinList(items) {
+        if (items.length === 0) return '';
+        if (items.length === 1) return items[0];
+        return items.slice(0, -1).join(', ') + ' y ' + items[items.length - 1];
+      }
+
+      function getLevel(percent) {
+        if (percent >= 60) return { key: 'high', label: 'Elevado' };
+        if (percent >= 34) return { key: 'mid', label: 'Moderado' };
+        return { key: 'low', label: 'Bajo' };
+      }
+
+      /* =========================================================
+         7. CONSTRUCCIÓN DEL CUESTIONARIO
+         ========================================================= */
+      function buildQuestionSet(modeKey) {
+        const config = MODES[modeKey].perArea;
+        const pools = AREA_ORDER.map((area) =>
+          QUESTION_BANK[area].slice(0, config[area]).map((q) => Object.assign({ area: area }, q))
+        );
+        // Intercala las áreas (round-robin) para que las preguntas no aparezcan en bloques
+        const result = [];
+        const maxLen = Math.max.apply(null, pools.map((p) => p.length));
+        for (let i = 0; i < maxLen; i++) {
+          pools.forEach((pool) => {
+            if (pool[i]) result.push(pool[i]);
+          });
+        }
+        return result;
+      }
+
+      function selectMode(modeKey) {
+        state.mode = modeKey;
+        modeButtons.forEach((btn) => {
+          const active = btn.dataset.mode === modeKey;
+          btn.classList.toggle('selected', active);
+          btn.setAttribute('aria-checked', active ? 'true' : 'false');
+        });
+      }
+
+      function startTest() {
+        state.questions = buildQuestionSet(state.mode);
+        state.answers = new Array(state.questions.length).fill(null);
+        state.index = 0;
+        $('q-total').textContent = state.questions.length;
+        showScreen('quiz');
+        renderQuestion();
+      }
+
+      /* =========================================================
+         8. RENDER DE PREGUNTAS
+         ========================================================= */
+      function renderQuestion() {
+        clearTimeout(advanceTimer);
+        const q = state.questions[state.index];
+        const total = state.questions.length;
+        const answeredCount = state.answers.filter((a) => a !== null).length;
+        const percent = Math.round((answeredCount / total) * 100);
+
+        $('q-current').textContent = state.index + 1;
+        $('q-percent').textContent = percent + '%';
+        $('progress-fill').style.width = percent + '%';
+        $('progressbar').setAttribute('aria-valuenow', percent);
+
+        const area = AREAS[q.area];
+        const tag = $('area-tag');
+        tag.style.color = area.color;
+        tag.style.background = area.color + '14';
+        $('area-name').textContent = area.name;
+        $('question-text').textContent = capitalize(q.text.replace(/^¿/, '¿'));
+
+        const optionsEl = $('options');
+        optionsEl.innerHTML = '';
+        SCALE.forEach((opt) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'option' + (state.answers[state.index] === opt.value ? ' selected' : '');
+          btn.setAttribute('role', 'radio');
+          btn.setAttribute('aria-checked', state.answers[state.index] === opt.value ? 'true' : 'false');
+          btn.dataset.value = opt.value;
+          btn.innerHTML =
+            '<span class="option-key">' + opt.value + '</span>' +
+            '<span class="option-label"><strong>' + escapeHTML(opt.label) + '</strong>' +
+            '<small>' + escapeHTML(opt.hint) + '</small></span>';
+          btn.addEventListener('click', () => chooseAnswer(opt.value));
+          optionsEl.appendChild(btn);
+        });
+
+        $('btn-prev').disabled = state.index === 0;
+        updateNextButton();
+      }
+
+      function updateNextButton() {
+        const isLast = state.index === state.questions.length - 1;
+        $('btn-next-label').textContent = isLast ? 'Ver resultados' : 'Siguiente';
+        $('btn-next').disabled = state.answers[state.index] === null;
+      }
+
+      function chooseAnswer(value) {
+        state.answers[state.index] = value;
+        document.querySelectorAll('.option').forEach((el) => {
+          const active = Number(el.dataset.value) === value;
+          el.classList.toggle('selected', active);
+          el.setAttribute('aria-checked', active ? 'true' : 'false');
+        });
+
+        const total = state.questions.length;
+        const answeredCount = state.answers.filter((a) => a !== null).length;
+        const percent = Math.round((answeredCount / total) * 100);
+        $('q-percent').textContent = percent + '%';
+        $('progress-fill').style.width = percent + '%';
+        $('progressbar').setAttribute('aria-valuenow', percent);
+        updateNextButton();
+
+        // Avance automático (en la última pregunta se espera confirmación explícita)
+        const isLast = state.index === total - 1;
+        if ($('auto-advance').checked && !isLast) {
+          clearTimeout(advanceTimer);
+          advanceTimer = setTimeout(goNext, 380);
+        }
+      }
+
+      function goNext() {
+        clearTimeout(advanceTimer);
+        if (state.answers[state.index] === null) return;
+        if (state.index < state.questions.length - 1) {
+          state.index++;
+          renderQuestion();
+        } else {
+          showResults();
+        }
+      }
+
+      function goPrev() {
+        clearTimeout(advanceTimer);
+        if (state.index > 0) {
+          state.index--;
+          renderQuestion();
+        }
+      }
+
+      /* =========================================================
+         9. CÁLCULO DE RESULTADOS
+         ========================================================= */
+      function computeResults() {
+        const results = {};
+        AREA_ORDER.forEach((area) => {
+          results[area] = { score: 0, max: 0, count: 0 };
+        });
+        let riskFlag = false;
+
+        state.questions.forEach((q, i) => {
+          const value = state.answers[i] || 0;
+          const r = results[q.area];
+          r.score += value;
+          r.max += 3;
+          r.count++;
+          if (q.risk && value > 0) riskFlag = true;
+        });
+
+        AREA_ORDER.forEach((area) => {
+          const r = results[area];
+          r.percent = r.max > 0 ? Math.round((r.score / r.max) * 100) : 0;
+          r.level = getLevel(r.percent);
+        });
+
+        return { areas: results, riskFlag: riskFlag };
+      }
+
+      /* =========================================================
+         10. GENERACIÓN DEL RESUMEN SINTÉTICO
+         ========================================================= */
+      function buildSummary(areas) {
+        const modeLabel = {
+          rapido: 'el test rápido',
+          intermedio: 'el test intermedio',
+          completo: 'el test completo'
+        }[state.mode];
+
+        const groups = { low: [], mid: [], high: [] };
+        AREA_ORDER.forEach((area) => {
+          groups[areas[area].level.key].push(area);
+        });
+        const names = (list) => list.map((a) => '<strong>' + AREAS[a].short + '</strong>');
+
+        let text = 'De acuerdo con tus respuestas en ' + modeLabel + ', ';
+        const parts = [];
+
+        if (groups.high.length === 0 && groups.mid.length === 0) {
+          text += 'se observa una <strong>presencia baja</strong> de indicadores sintomáticos en las cuatro áreas evaluadas. ' +
+            'Esto sugiere que, en las últimas dos semanas, no has experimentado un malestar significativo en ansiedad, estado de ánimo, atención ni estrés. ' +
+            'Mantener tus hábitos de autocuidado te ayudará a sostener este equilibrio.';
+          return text;
+        }
+
+        if (groups.low.length) {
+          parts.push('se observa una presencia baja en indicadores de ' + joinList(names(groups.low)));
+        }
+        if (groups.mid.length) {
+          parts.push('una elevación moderada en ' + joinList(names(groups.mid)));
+        }
+        if (groups.high.length) {
+          parts.push('una presencia elevada en ' + joinList(names(groups.high)));
+        }
+
+        if (parts.length === 1) {
+          text += parts[0].replace(/^una /, 'se aprecia una ') + '. ';
+        } else {
+          const last = parts.pop();
+          text += parts.join(', ') + ', pero ' + last + '. ';
+        }
+
+        // Área predominante
+        const sorted = AREA_ORDER.slice().sort((a, b) => areas[b].percent - areas[a].percent);
+        const top = sorted[0];
+        text += 'La dimensión con mayor carga sintomática es <strong>' + AREAS[top].name.toLowerCase() +
+          '</strong> (' + areas[top].percent + '% de la puntuación máxima). ';
+
+        if (groups.high.length >= 2) {
+          text += 'La coexistencia de varias áreas elevadas puede indicar un malestar generalizado que probablemente esté interfiriendo en tu vida diaria; ' +
+            'es aconsejable que lo comentes con un profesional de la salud mental.';
+        } else if (groups.high.length === 1) {
+          text += 'Este patrón sugiere que conviene prestar especial atención a esta área y valorar una consulta profesional si el malestar persiste o interfiere en tus actividades.';
+        } else {
+          text += 'Estos niveles moderados son frecuentes en periodos de mayor exigencia; conviene vigilarlos y aplicar estrategias de autocuidado para evitar que se intensifiquen.';
+        }
+
+        if (state.mode !== 'completo') {
+          text += ' Para obtener una visión más precisa, te sugerimos realizar el <strong>modo completo</strong>.';
+        }
+        return text;
+      }
+
+      function buildRecommendations(areas) {
+        const recs = [];
+        const sorted = AREA_ORDER.slice()
+          .filter((a) => areas[a].level.key !== 'low')
+          .sort((a, b) => areas[b].percent - areas[a].percent);
+
+        const hasHigh = AREA_ORDER.some((a) => areas[a].level.key === 'high');
+        if (hasHigh) recs.push(RECOMMENDATIONS.professional);
+
+        sorted.forEach((area) => {
+          if (recs.length < 3) recs.push(RECOMMENDATIONS[area]);
+        });
+
+        let g = 0;
+        while (recs.length < 3 && g < RECOMMENDATIONS.general.length) {
+          recs.push(RECOMMENDATIONS.general[g]);
+          g++;
+        }
+        return recs;
+      }
+
+      /* =========================================================
+         11. RENDER DEL INFORME
+         ========================================================= */
+      function showResults() {
+        const { areas, riskFlag } = computeResults();
+
+        // Chips de metadatos
+        const date = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+        $('meta-chips').innerHTML =
+          '<span class="chip">' + escapeHTML(MODES[state.mode].name) + '</span>' +
+          '<span class="chip">' + state.questions.length + ' preguntas respondidas</span>' +
+          '<span class="chip">' + escapeHTML(date) + '</span>';
+
+        // Alerta de riesgo
+        $('risk-alert').classList.toggle('hidden', !riskFlag);
+
+        // Barras por área
+        const container = $('area-results');
+        container.innerHTML = '';
+        AREA_ORDER.forEach((area) => {
+          const r = areas[area];
+          const row = document.createElement('div');
+          row.className = 'area-row';
+          row.innerHTML =
+            '<div class="area-head">' +
+              '<span class="area-name">' + escapeHTML(AREAS[area].name) + '</span>' +
+              '<span class="level ' + r.level.key + '">' + r.level.label + '</span>' +
+            '</div>' +
+            '<div class="bar" role="img" aria-label="' + escapeHTML(AREAS[area].name) + ': ' + r.percent + '%, nivel ' + r.level.label + '">' +
+              '<div class="bar-fill ' + r.level.key + '" data-width="' + Math.max(r.percent, 2) + '"></div>' +
+            '</div>' +
+            '<div class="area-score">' + r.score + ' de ' + r.max + ' puntos · ' + r.percent + '% · ' +
+              r.count + (r.count === 1 ? ' pregunta' : ' preguntas') + '</div>';
+          container.appendChild(row);
+        });
+
+        // Resumen
+        $('summary-text').innerHTML = buildSummary(areas);
+
+        // Recomendaciones
+        const recsEl = $('recs');
+        recsEl.innerHTML = '';
+        buildRecommendations(areas).forEach((rec) => {
+          const li = document.createElement('li');
+          li.innerHTML =
+            '<span class="rec-icon" aria-hidden="true">' +
+              '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>' +
+            '</span>' +
+            '<div><strong>' + escapeHTML(rec.title) + '</strong><p>' + escapeHTML(rec.text) + '</p></div>';
+          recsEl.appendChild(li);
+        });
+
+        showScreen('results');
+
+        // Animación de las barras
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            document.querySelectorAll('.bar-fill').forEach((el) => {
+              el.style.width = el.dataset.width + '%';
+            });
+          }, 80);
+        });
+      }
+
+      /* =========================================================
+         12. REINICIO
+         ========================================================= */
+      function resetTest() {
+        clearTimeout(advanceTimer);
+        state.questions = [];
+        state.answers = [];
+        state.index = 0;
+        $('area-results').innerHTML = '';
+        $('summary-text').innerHTML = '';
+        $('recs').innerHTML = '';
+        $('risk-alert').classList.add('hidden');
+        showScreen('welcome');
+      }
+
+      /* =========================================================
+         13. EVENTOS
+         ========================================================= */
+      modeButtons.forEach((btn) => {
+        btn.addEventListener('click', () => selectMode(btn.dataset.mode));
+      });
+      $('btn-start').addEventListener('click', startTest);
+      $('btn-next').addEventListener('click', goNext);
+      $('btn-prev').addEventListener('click', goPrev);
+      $('btn-restart').addEventListener('click', resetTest);
+      $('btn-print').addEventListener('click', () => window.print());
+      $('btn-cancel').addEventListener('click', () => {
+        const answered = state.answers.some((a) => a !== null);
+        if (!answered || window.confirm('¿Seguro que deseas salir? Se perderán tus respuestas.')) {
+          resetTest();
+        }
+      });
+
+      // Atajos de teclado en el cuestionario: 1–4 para responder, flechas para navegar
+      document.addEventListener('keydown', (e) => {
+        if (screens.quiz.classList.contains('hidden')) return;
+        if (e.target.tagName === 'INPUT') return;
+        if (e.key >= '1' && e.key <= '4') {
+          chooseAnswer(Number(e.key) - 1);
+        } else if (e.key === 'ArrowRight' || e.key === 'Enter') {
+          if (e.key === 'Enter' && e.target.tagName === 'BUTTON') return;
+          goNext();
+        } else if (e.key === 'ArrowLeft') {
+          goPrev();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
