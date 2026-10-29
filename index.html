@@ -449,12 +449,24 @@
     }
 
     /* ========== JUEGO DE ATENCIÓN ========== */
-    .game-cta {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+    .games-intro { font-size: .9rem; color: var(--text-muted); margin: -6px 0 14px; }
+    .games-list { display: grid; gap: 10px; }
+    .game-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      background: #fff;
+      transition: box-shadow .2s, border-color .2s;
     }
-    .game-cta-head { display: flex; gap: 14px; align-items: flex-start; }
+    .game-item:hover { border-color: #b7cbe2; box-shadow: var(--shadow-hover); }
+    .game-item .btn { grid-column: 1 / -1; min-height: 42px; padding: 9px 18px; font-size: .93rem; }
+    .game-item h3 { font-size: 1rem; margin: 0; }
+    .game-item .game-meta { display: block; font-size: .76rem; font-weight: 600; color: #0b7a85; margin: 2px 0 4px; }
+    .game-item p { font-size: .87rem; color: var(--text-muted); }
     .game-cta-icon {
       width: 44px; height: 44px;
       border-radius: 12px;
@@ -463,8 +475,6 @@
       display: grid; place-items: center;
       flex-shrink: 0;
     }
-    .game-cta h3 { font-size: 1.05rem; margin-bottom: 4px; }
-    .game-cta p { font-size: .92rem; color: var(--text-muted); }
     .tag-optional {
       display: inline-block;
       font-size: .72rem;
@@ -553,6 +563,120 @@
     .metric-label { font-size: .8rem; color: var(--text-muted); margin-top: 2px; }
     .game-dims .area-row p { font-size: .9rem; color: var(--text-muted); }
 
+    /* Juegos con opciones */
+    .choice-stage {
+      height: 220px;
+      border-radius: var(--radius);
+      background: #f4f8fc;
+      border: 2px solid #e1e9f2;
+      display: grid;
+      place-items: center;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .choice-stage > * { grid-area: 1 / 1; }
+    .choice-stage .stimulus svg { width: 110px; height: 110px; }
+    .stroop-word { font-size: 2.6rem; font-weight: 800; letter-spacing: .04em; }
+    .game-message.fixation { color: #9aabbd; font-size: 2.6rem; font-weight: 400; }
+    .game-message.feedback-ok { color: var(--low); font-size: 2.4rem; }
+    .game-message.feedback-bad { color: var(--high); font-size: 2.4rem; }
+    .game-message.feedback-miss { color: var(--mid); font-size: 1.4rem; }
+    .choice-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .choice-btn {
+      position: relative;
+      min-height: 72px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--text);
+      font-family: inherit;
+      font-size: .8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      gap: 4px;
+      padding: 8px 4px;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color .12s, background .12s, transform .08s;
+    }
+    .choice-btn:hover { border-color: #a9c1dc; }
+    .choice-btn:active { transform: scale(.97); }
+    .choice-btn:focus-visible { outline: 3px solid rgba(30, 95, 168, .35); outline-offset: 2px; }
+    .choice-btn.right { border-color: var(--low); background: #e5f5ec; }
+    .choice-btn.wrong { border-color: var(--high); background: #fbe6e6; }
+    .choice-btn .swatch { width: 26px; height: 26px; border-radius: 50%; }
+    .choice-btn .key {
+      position: absolute;
+      top: 4px; left: 6px;
+      font-size: .68rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .choice-demo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 18px 0;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f7fafd;
+      font-size: .9rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .choice-demo .stroop-word { font-size: 1.9rem; }
+    .choice-demo strong { color: var(--text); }
+
+    /* Manchas de tinta */
+    .level.neutral { background: var(--primary-soft); color: var(--primary); }
+    .bar-fill.neutral { background: linear-gradient(90deg, #5aa9d6, var(--primary)); }
+    .ink-stage {
+      display: grid;
+      place-items: center;
+      background: #fbfaf6;
+      border: 1px solid #e8e3d6;
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .ink-stage canvas {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      aspect-ratio: 1;
+      transition: transform .35s ease;
+    }
+    .ink-tools { display: flex; justify-content: center; margin: 6px 0 4px; }
+    .ink-tools .link-btn { text-decoration: none; color: var(--primary); font-weight: 600; }
+    .ink-q { font-size: 1rem; margin: 14px 0 10px; }
+    .ink-options { display: grid; gap: 8px; }
+    .ink-options .option { padding: 10px 14px; font-size: .93rem; }
+    .ink-det { grid-template-columns: 1fr 1fr; }
+    .ink-input {
+      width: 100%;
+      margin-top: 8px;
+      padding: 12px 14px;
+      font: inherit;
+      font-size: .95rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+    }
+    .ink-input:focus { outline: none; border-color: var(--primary); }
+    .ink-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    .ink-table th, .ink-table td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .ink-table th { color: var(--text-muted); font-weight: 600; font-size: .78rem; }
+    .ink-table td:first-child { color: var(--text-muted); white-space: nowrap; }
+
     /* ========== TABLET / DESKTOP ========== */
     @media (min-width: 600px) {
       .container { padding: 40px 24px 64px; }
@@ -565,8 +689,10 @@
       .actions { grid-template-columns: 1fr 1fr; }
       .kbd-hint { display: inline; }
       .alert { padding: 20px 22px; }
-      .game-cta { flex-direction: row; align-items: center; justify-content: space-between; }
-      .game-cta .btn { flex-shrink: 0; }
+      .game-item { grid-template-columns: auto 1fr auto; }
+      .game-item .btn { grid-column: auto; }
+      .choice-stage { height: 280px; }
+      .stroop-word { font-size: 3.4rem; }
       .game-area { height: 360px; }
       .metrics { grid-template-columns: repeat(4, 1fr); }
     }
@@ -658,17 +784,10 @@
         </div>
       </div>
 
-      <div class="card game-cta">
-        <div class="game-cta-head">
-          <div class="game-cta-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-          </div>
-          <div>
-            <h3>Juego de atención <span class="tag-optional">Opcional · 2 min</span></h3>
-            <p>Una tarea de reacción tipo Go/No-Go para explorar tu atención sostenida y tu control de impulsos.</p>
-          </div>
-        </div>
-        <button type="button" class="btn btn-secondary" data-open-game>Probar el juego</button>
+      <div class="card">
+        <h2 class="section-title">Juegos de atención y velocidad <span class="tag-optional">Opcionales</span></h2>
+        <p class="games-intro">Tareas breves inspiradas en pruebas neuropsicológicas. Son educativas y no diagnostican.</p>
+        <div class="games-list" data-games-list></div>
       </div>
     </section>
 
@@ -748,17 +867,10 @@
         <ul class="recs" id="recs"></ul>
       </div>
 
-      <div class="card game-cta no-print">
-        <div class="game-cta-head">
-          <div class="game-cta-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-          </div>
-          <div>
-            <h3>Complementa con el juego de atención <span class="tag-optional">2 min</span></h3>
-            <p>Mide tu tiempo de reacción, tus fallas de atención y tus respuestas impulsivas en una tarea breve.</p>
-          </div>
-        </div>
-        <button type="button" class="btn btn-secondary" data-open-game>Probar el juego</button>
+      <div class="card no-print">
+        <h3 class="section-title">Complementa con los juegos de atención y velocidad</h3>
+        <p class="games-intro">Mide tu tiempo de reacción, tu precisión y tu control de impulsos en tareas breves.</p>
+        <div class="games-list" data-games-list></div>
       </div>
 
       <div class="alert alert-warning" role="note">
@@ -848,11 +960,111 @@
         <p class="game-hint">Responde solo ante el <strong style="color:var(--primary)">círculo azul</strong> · Toca el área o pulsa <strong>Espacio</strong></p>
       </div>
 
-      <!-- Resultados -->
+      <!-- Juegos con opciones: instrucciones -->
+      <div class="card hidden" id="choice-intro">
+        <h2 class="section-title" style="font-size:1.3rem" id="choice-title"></h2>
+        <div class="game-notice hidden" id="choice-abort-notice" role="alert"></div>
+        <p class="subtitle" style="color:var(--text-muted)" id="choice-desc"></p>
+        <div class="choice-demo" id="choice-demo"></div>
+        <ul class="info-list" id="choice-info"></ul>
+        <div class="nav">
+          <button type="button" class="btn btn-secondary" data-game-exit>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            Volver
+          </button>
+          <button type="button" class="btn btn-primary" id="btn-choice-start">
+            Comenzar el juego
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Juegos con opciones: partida -->
+      <div class="card hidden" id="choice-play">
+        <div class="quiz-top">
+          <span>Ronda <strong id="choice-current">0</strong> de <strong id="choice-total">40</strong></span>
+          <button type="button" class="link-btn" id="btn-choice-cancel">Cancelar</button>
+        </div>
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="choice-progressbar">
+          <div class="progress-fill" id="choice-progress-fill"></div>
+        </div>
+        <div class="choice-stage">
+          <div class="stimulus" id="choice-stimulus" aria-live="polite"></div>
+          <p class="game-message" id="choice-message"></p>
+        </div>
+        <div class="choice-options" id="choice-options" role="group" aria-label="Opciones de respuesta"></div>
+        <p class="game-hint" id="choice-hint"></p>
+      </div>
+
+      <!-- Manchas de tinta: instrucciones -->
+      <div class="card hidden" id="ink-intro">
+        <h2 class="section-title" style="font-size:1.3rem">Manchas de tinta · Ejercicio proyectivo</h2>
+        <p class="subtitle" style="color:var(--text-muted)">
+          Verás <strong>10 manchas de tinta simétricas</strong>, al estilo de las láminas de Rorschach. No hay respuestas correctas ni incorrectas:
+          elige lo que <strong>primero</strong> te sugiere cada mancha y luego qué te hizo verlo así. Al final recibirás un informe descriptivo de tu estilo de respuesta.
+        </p>
+        <ul class="info-list" style="margin-bottom:18px">
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>Puedes <strong>girar la lámina</strong> si quieres mirarla desde otro ángulo, y escribir tu propia respuesta si ninguna opción te convence.</span>
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>Dura unos 3–5 minutos. Tómate el tiempo que necesites.</span>
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+            <span>Las manchas son <strong>originales</strong> (no son las láminas clínicas) y el informe es <strong>educativo y descriptivo</strong>: no evalúa tu personalidad ni diagnostica nada.</span>
+          </li>
+        </ul>
+        <div class="nav">
+          <button type="button" class="btn btn-secondary" data-game-exit>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            Volver
+          </button>
+          <button type="button" class="btn btn-primary" id="btn-ink-start">
+            Comenzar
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Manchas de tinta: láminas -->
+      <div class="card hidden" id="ink-play">
+        <div class="quiz-top">
+          <span>Lámina <strong id="ink-current">1</strong> de <strong id="ink-total">10</strong></span>
+          <button type="button" class="link-btn" id="btn-ink-cancel">Cancelar</button>
+        </div>
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="ink-progressbar">
+          <div class="progress-fill" id="ink-progress-fill"></div>
+        </div>
+        <div class="ink-stage">
+          <canvas id="ink-canvas" width="320" height="320" role="img" aria-label="Mancha de tinta simétrica"></canvas>
+        </div>
+        <div class="ink-tools">
+          <button type="button" class="link-btn" id="btn-ink-rotate">↻ Girar lámina</button>
+        </div>
+        <h3 class="ink-q">¿Qué podría ser esto?</h3>
+        <div class="ink-options" id="ink-options" role="radiogroup" aria-label="¿Qué podría ser esto?"></div>
+        <input type="text" class="ink-input hidden" id="ink-other" maxlength="80" placeholder="Describe brevemente lo que ves…" aria-label="Tu respuesta">
+        <div id="ink-det-block" class="hidden">
+          <h3 class="ink-q">¿Qué te hizo verlo así?</h3>
+          <div class="ink-options ink-det" id="ink-det" role="radiogroup" aria-label="¿Qué te hizo verlo así?"></div>
+        </div>
+        <div class="nav">
+          <span></span>
+          <button type="button" class="btn btn-primary" id="btn-ink-next" disabled>
+            <span id="btn-ink-next-label">Siguiente lámina</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Resultados (compartidos por todos los juegos) -->
       <div id="game-result" class="hidden">
         <div class="card results-head">
-          <h2>Resultados del juego de atención</h2>
-          <p>Resumen de tu desempeño en la tarea Go/No-Go.</p>
+          <h2 id="game-result-title">Resultados del juego</h2>
+          <p id="game-result-sub"></p>
           <div class="metrics" id="game-metrics"></div>
         </div>
 
@@ -869,13 +1081,11 @@
           <p class="summary-text" id="game-summary"></p>
         </div>
 
+        <div class="card hidden" id="game-extra"></div>
+
         <div class="alert alert-warning" role="note">
           <svg class="alert-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-          <p>
-            <strong>Aviso:</strong> este juego es una actividad educativa inspirada en las tareas de ejecución continua que se usan en neuropsicología.
-            <strong>No detecta ni diagnostica TDAH ni ninguna otra condición.</strong> El resultado puede variar por cansancio, distracciones,
-            el dispositivo utilizado o la práctica. El diagnóstico de TDAH requiere una evaluación clínica completa realizada por un profesional.
-          </p>
+          <p id="game-result-warning"></p>
         </div>
 
         <div class="actions">
@@ -1418,6 +1628,8 @@
 
       const game = {
         origin: 'welcome',
+        current: 'gonogo', // juego abierto: gonogo | flechas | stroop
+        kind: 'gonogo',    // motor que lo ejecuta: gonogo | choice
         playing: false,
         sequence: [],
         index: -1,
@@ -1426,16 +1638,21 @@
         timers: []
       };
 
+      // Mezcla de Fisher-Yates (modifica y devuelve el mismo array)
+      function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+        }
+        return arr;
+      }
+
       function buildGameSequence() {
         const seq = [];
         for (let i = 0; i < GAME_CONFIG.trials; i++) {
           seq.push(i < GAME_CONFIG.noGoCount ? 'nogo' : 'go');
         }
-        // Mezcla de Fisher-Yates
-        for (let i = seq.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          const tmp = seq[i]; seq[i] = seq[j]; seq[j] = tmp;
-        }
+        shuffle(seq);
         // Las dos primeras figuras siempre son "go" para entrar en ritmo
         for (let k = 0; k < 2; k++) {
           if (seq[k] === 'nogo') {
@@ -1456,18 +1673,50 @@
         game.timers.push(setTimeout(fn, ms));
       }
 
+      const GAME_PANELS = {
+        intro: 'game-intro',
+        play: 'game-play',
+        'choice-intro': 'choice-intro',
+        'choice-play': 'choice-play',
+        'ink-intro': 'ink-intro',
+        'ink-play': 'ink-play',
+        result: 'game-result'
+      };
+
       function showGamePanel(name) {
-        $('game-intro').classList.toggle('hidden', name !== 'intro');
-        $('game-play').classList.toggle('hidden', name !== 'play');
-        $('game-result').classList.toggle('hidden', name !== 'result');
+        Object.keys(GAME_PANELS).forEach((key) => {
+          $(GAME_PANELS[key]).classList.toggle('hidden', key !== name);
+        });
       }
 
-      function openGame(origin) {
+      function openGame(id, origin) {
         game.origin = origin;
+        game.current = id;
         $('game-abort-notice').classList.add('hidden');
-        $('game-trials-label').textContent = GAME_CONFIG.trials;
-        showGamePanel('intro');
+        $('choice-abort-notice').classList.add('hidden');
+        if (id === 'gonogo') {
+          game.kind = 'gonogo';
+          $('game-trials-label').textContent = GAME_CONFIG.trials;
+          showGamePanel('intro');
+        } else if (id === 'manchas') {
+          game.kind = 'ink';
+          showGamePanel('ink-intro');
+        } else {
+          game.kind = 'choice';
+          renderChoiceIntro(CHOICE_GAMES[id]);
+          showGamePanel('choice-intro');
+        }
         showScreen('game');
+      }
+
+      function introPanel() {
+        return game.kind === 'choice' ? 'choice-intro' : 'intro';
+      }
+
+      function retryGame() {
+        if (game.kind === 'choice') startChoice();
+        else if (game.kind === 'ink') startInk();
+        else startGame();
       }
 
       function exitGame() {
@@ -1477,6 +1726,7 @@
 
       function startGame() {
         clearGameTimers();
+        game.kind = 'gonogo';
         game.sequence = buildGameSequence();
         game.results = [];
         game.index = -1;
@@ -1541,14 +1791,17 @@
         game.trial = null;
         $('game-stimulus').innerHTML = '';
         $('game-message').textContent = '';
+        $('choice-stimulus').innerHTML = '';
+        $('choice-message').textContent = '';
+        $('choice-message').className = 'game-message';
       }
 
       function abortGame(message) {
         stopGame();
-        const notice = $('game-abort-notice');
+        const notice = $(game.kind === 'choice' ? 'choice-abort-notice' : 'game-abort-notice');
         notice.textContent = message;
         notice.classList.remove('hidden');
-        showGamePanel('intro');
+        showGamePanel(introPanel());
       }
 
       function mean(values) {
@@ -1644,17 +1897,33 @@
         const r = computeGameResults();
         const dims = rateGame(r);
 
-        const metrics = [
-          { value: r.meanRt === null ? '—' : Math.round(r.meanRt) + '<small> ms</small>', label: 'Tiempo de reacción medio' },
-          { value: r.hits + '<small> / ' + r.goTotal + '</small>', label: 'Aciertos (círculos azules)' },
-          { value: r.omissions, label: 'Omisiones (círculos sin respuesta)' },
-          { value: r.commissions + '<small> / ' + r.noGoTotal + '</small>', label: 'Errores de impulsividad' }
-        ];
-        $('game-metrics').innerHTML = metrics.map((m) =>
+        showGameResult({
+          title: 'Resultados del juego de atención',
+          sub: 'Resumen de tu desempeño en la tarea Go/No-Go.',
+          metrics: [
+            { value: r.meanRt === null ? '—' : Math.round(r.meanRt) + '<small> ms</small>', label: 'Tiempo de reacción medio' },
+            { value: r.hits + '<small> / ' + r.goTotal + '</small>', label: 'Aciertos (círculos azules)' },
+            { value: r.omissions, label: 'Omisiones (círculos sin respuesta)' },
+            { value: r.commissions + '<small> / ' + r.noGoTotal + '</small>', label: 'Errores de impulsividad' }
+          ],
+          dims: dims,
+          summary: buildGameSummary(r, dims),
+          warning: '<strong>Aviso:</strong> este juego es una actividad educativa inspirada en las tareas de ejecución continua que se usan en neuropsicología. ' +
+            '<strong>No detecta ni diagnostica TDAH ni ninguna otra condición.</strong> El resultado puede variar por cansancio, distracciones, ' +
+            'el dispositivo utilizado o la práctica. El diagnóstico de TDAH requiere una evaluación clínica completa realizada por un profesional.'
+        });
+      }
+
+      // Informe compartido por todos los juegos
+      function showGameResult(res) {
+        $('game-result-title').textContent = res.title;
+        $('game-result-sub').textContent = res.sub;
+        $('game-result-warning').innerHTML = res.warning;
+        $('game-metrics').innerHTML = res.metrics.map((m) =>
           '<div class="metric"><div class="metric-value">' + m.value + '</div><div class="metric-label">' + m.label + '</div></div>'
         ).join('');
 
-        $('game-dims').innerHTML = dims.map((d) =>
+        $('game-dims').innerHTML = res.dims.map((d) =>
           '<div class="area-row">' +
             '<div class="area-head">' +
               '<span class="area-name">' + escapeHTML(d.name) + '</span>' +
@@ -1668,7 +1937,9 @@
           '</div>'
         ).join('');
 
-        $('game-summary').innerHTML = buildGameSummary(r, dims);
+        $('game-summary').innerHTML = res.summary;
+        $('game-extra').innerHTML = res.extra || '';
+        $('game-extra').classList.toggle('hidden', !res.extra);
         showGamePanel('result');
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -1680,7 +1951,760 @@
       }
 
       /* =========================================================
-         14. EVENTOS
+         14. JUEGOS CON OPCIONES (velocidad de elección)
+         ========================================================= */
+      const CHOICE_CONFIG = {
+        timeoutMs: 2500,     // tiempo máximo para responder cada ronda
+        fixationMinMs: 400,  // cruz de fijación antes de cada estímulo
+        fixationMaxMs: 800,
+        feedbackMs: 350,
+        minRtMs: 150         // respuestas más rápidas se consideran anticipaciones
+      };
+
+      const ARROWS = [
+        { id: 'izquierda', label: 'Izquierda', key: 'ArrowLeft', rotate: 180 },
+        { id: 'arriba', label: 'Arriba', key: 'ArrowUp', rotate: 270 },
+        { id: 'derecha', label: 'Derecha', key: 'ArrowRight', rotate: 0 },
+        { id: 'abajo', label: 'Abajo', key: 'ArrowDown', rotate: 90 }
+      ];
+
+      const COLORS = [
+        { id: 'rojo', label: 'Rojo', hex: '#d64545', key: '1' },
+        { id: 'azul', label: 'Azul', hex: '#1e5fa8', key: '2' },
+        { id: 'verde', label: 'Verde', hex: '#2e9e5b', key: '3' },
+        { id: 'amarillo', label: 'Amarillo', hex: '#d99a00', key: '4' }
+      ];
+
+      function arrowSvg(rotate, size) {
+        return '<svg viewBox="0 0 120 120" width="' + size + '" height="' + size + '" aria-hidden="true">' +
+          '<g transform="rotate(' + rotate + ' 60 60)"><path d="M18 60h76M64 28l32 32-32 32" stroke="#1e5fa8" ' +
+          'stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g></svg>';
+      }
+
+      function stroopWord(word, ink) {
+        return '<span class="stroop-word" style="color:' + ink.hex + '">' + word.label.toUpperCase() + '</span>';
+      }
+
+      // Devuelve el nivel según dos umbrales (valores bajos = mejor desempeño)
+      function rate(value, lowMax, midMax, labels, texts) {
+        if (value <= lowMax) return { key: 'low', label: labels[0], text: texts[0] };
+        if (value <= midMax) return { key: 'mid', label: labels[1], text: texts[1] };
+        return { key: 'high', label: labels[2], text: texts[2] };
+      }
+
+      function summarizeChoice(results) {
+        const valid = results.filter((t) => t.correct && t.rt >= CHOICE_CONFIG.minRtMs);
+        const rts = valid.map((t) => t.rt);
+        const correct = results.filter((t) => t.correct).length;
+        const omissions = results.filter((t) => t.chosen === null).length;
+        const meanRt = rts.length ? mean(rts) : null;
+        const sdRt = rts.length > 1 ? stdDev(rts) : null;
+        return {
+          total: results.length,
+          correct: correct,
+          errors: results.length - correct - omissions,
+          omissions: omissions,
+          accuracy: Math.round((correct / results.length) * 100),
+          meanRt: meanRt,
+          cv: meanRt && sdRt !== null ? sdRt / meanRt : null
+        };
+      }
+
+      function accuracyDim(s) {
+        const errPct = 100 - s.accuracy;
+        return Object.assign({
+          name: 'Precisión',
+          value: Math.min(errPct * 4, 100),
+          detail: s.correct + ' de ' + s.total + ' correctas (' + s.accuracy + '%) · ' + s.errors + ' errores · ' + s.omissions + ' sin respuesta'
+        }, rate(errPct, 5, 15,
+          ['Alta', 'Media', 'Baja'],
+          ['Elegiste la opción correcta casi siempre: respondiste rápido sin sacrificar exactitud.',
+            'Cometiste algunos errores. Puede pasar cuando se prioriza la velocidad sobre la exactitud.',
+            'Cometiste bastantes errores o dejaste rondas sin responder. Intenta ir un poco más despacio y con calma.']));
+      }
+
+      function stabilityDim(s) {
+        const cvPct = Math.round(s.cv * 100);
+        return Object.assign({
+          name: 'Estabilidad de respuesta',
+          value: Math.min(cvPct * 2, 100),
+          detail: 'Coeficiente de variación: ' + cvPct + '%'
+        }, rate(s.cv, 0.20, 0.30,
+          ['Estable', 'Variable', 'Muy variable'],
+          ['Tus tiempos fueron regulares durante toda la partida.',
+            'Tus tiempos variaron de forma moderada, con algunas respuestas más lentas.',
+            'Tus tiempos fueron muy irregulares, lo que suele reflejar altibajos en la concentración.']));
+      }
+
+      function flaggedSentence(dims) {
+        const flagged = dims.filter((d) => d.key !== 'low').map((d) => '<strong>' + d.name.toLowerCase() + '</strong>');
+        return flagged.length === 0
+          ? ' En esta partida no se observan dificultades en ninguno de los aspectos evaluados.'
+          : ' Hay aspectos a revisar en ' + joinList(flagged) + '.';
+      }
+
+      const PLAY_AGAIN_NOTE = ' Una sola partida está muy influida por el cansancio, el entorno y el dispositivo; repetirla en otro momento te dará una idea más fiable.';
+
+      const CHOICE_WARNING = '<strong>Aviso:</strong> este juego es una actividad educativa inspirada en pruebas de tiempo de reacción usadas en neuropsicología. ' +
+        '<strong>No detecta ni diagnostica ninguna condición.</strong> El resultado puede variar por cansancio, distracciones, el dispositivo o la práctica. ' +
+        'Ante cualquier duda sobre tu atención o tu rendimiento, consulta a un profesional.';
+
+      const CHOICE_GAMES = {
+        flechas: {
+          title: 'Flechas rápidas · Velocidad de elección',
+          desc: 'En el centro aparecerá una flecha. Elige <strong>lo más rápido posible</strong> el botón que apunta en la ' +
+            '<strong>misma dirección</strong>. Tienes 2,5 segundos por ronda.',
+          demo: arrowSvg(0, 56) + '<span>→ pulsa</span><strong>' + arrowSvg(0, 32) + ' Derecha</strong>',
+          info: ['Responde tocando los botones o con las <strong>flechas del teclado</strong> (← ↑ → ↓).',
+            'Son <strong>40 rondas</strong>, alrededor de 1 minuto y medio.'],
+          hint: 'Elige la flecha que coincide · Teclado: ← ↑ → ↓',
+          options: ARROWS.map((a) => ({ id: a.id, key: a.key, aria: a.label, html: arrowSvg(a.rotate, 34) + '<span>' + a.label + '</span>' })),
+          buildSequence() {
+            const seq = [];
+            ARROWS.forEach((a) => {
+              for (let i = 0; i < 10; i++) seq.push({ answer: a.id, html: arrowSvg(a.rotate, 110) });
+            });
+            return shuffle(seq);
+          },
+          evaluate(results) {
+            const s = summarizeChoice(results);
+            const dims = [];
+            if (s.meanRt !== null) {
+              dims.push(Object.assign({
+                name: 'Velocidad de elección',
+                value: Math.min(Math.round(s.meanRt / 12), 100),
+                detail: 'Tiempo medio en respuestas correctas: ' + Math.round(s.meanRt) + ' ms'
+              }, rate(s.meanRt, 650, 850,
+                ['Rápida', 'Algo lenta', 'Lenta'],
+                ['Identificaste la dirección y elegiste la opción con rapidez.',
+                  'Tardaste un poco más de lo habitual en elegir entre las opciones.',
+                  'Tus respuestas fueron lentas. Puede deberse a cansancio, al dispositivo o a un estilo muy cuidadoso.'])));
+            }
+            dims.push(accuracyDim(s));
+            if (s.cv !== null) dims.push(stabilityDim(s));
+
+            const speed = s.meanRt === null
+              ? 'No registramos respuestas correctas, por lo que no fue posible calcular tu velocidad.'
+              : 'Elegiste la flecha correcta en ' + s.correct + ' de ' + s.total + ' rondas (' + s.accuracy + '%), con un tiempo medio de <strong>' + Math.round(s.meanRt) + ' ms</strong>.';
+            return {
+              title: 'Resultados de Flechas rápidas',
+              sub: 'Velocidad y precisión al elegir entre 4 opciones.',
+              metrics: [
+                { value: s.meanRt === null ? '—' : Math.round(s.meanRt) + '<small> ms</small>', label: 'Tiempo medio (correctas)' },
+                { value: s.accuracy + '<small> %</small>', label: 'Precisión' },
+                { value: s.errors, label: 'Errores' },
+                { value: s.omissions, label: 'Sin respuesta' }
+              ],
+              dims: dims,
+              summary: speed + flaggedSentence(dims) + PLAY_AGAIN_NOTE,
+              warning: CHOICE_WARNING
+            };
+          }
+        },
+
+        stroop: {
+          title: 'Colores y palabras · Efecto Stroop',
+          desc: 'Aparecerá el nombre de un color escrito con tinta de color. Elige el <strong>color de la tinta</strong>, ' +
+            '<strong>no lo que dice la palabra</strong>. A veces coinciden y a veces no: ahí está el desafío.',
+          demo: stroopWord(COLORS[1], COLORS[0]) + '<span>→ la respuesta correcta es</span><strong style="color:' + COLORS[0].hex + '">Rojo</strong>',
+          info: ['Responde tocando los botones o con las teclas <strong>1, 2, 3 y 4</strong>.',
+            'Son <strong>40 rondas</strong>, alrededor de 1 minuto y medio.'],
+          hint: 'Elige el color de la tinta · Teclado: 1 Rojo · 2 Azul · 3 Verde · 4 Amarillo',
+          options: COLORS.map((c) => ({
+            id: c.id, key: c.key, aria: c.label,
+            html: '<span class="key">' + c.key + '</span><span class="swatch" style="background:' + c.hex + '"></span><span>' + c.label + '</span>'
+          })),
+          buildSequence() {
+            const seq = [];
+            COLORS.forEach((ink) => {
+              for (let i = 0; i < 5; i++) {
+                // Congruente: la palabra coincide con la tinta
+                seq.push({ answer: ink.id, congruent: true, html: stroopWord(ink, ink) });
+                // Incongruente: la palabra nombra otro color
+                const others = COLORS.filter((c) => c.id !== ink.id);
+                const word = others[Math.floor(Math.random() * others.length)];
+                seq.push({ answer: ink.id, congruent: false, html: stroopWord(word, ink) });
+              }
+            });
+            return shuffle(seq);
+          },
+          evaluate(results) {
+            const s = summarizeChoice(results);
+            const rtOf = (congruent) => {
+              const rts = results
+                .filter((t) => t.congruent === congruent && t.correct && t.rt >= CHOICE_CONFIG.minRtMs)
+                .map((t) => t.rt);
+              return rts.length ? mean(rts) : null;
+            };
+            const rtCong = rtOf(true);
+            const rtIncong = rtOf(false);
+            const interference = rtCong !== null && rtIncong !== null ? Math.round(rtIncong - rtCong) : null;
+
+            const dims = [];
+            if (interference !== null) {
+              dims.push(Object.assign({
+                name: 'Control de interferencia',
+                value: Math.min(Math.max(Math.round(interference / 3), 0), 100),
+                detail: 'Tardaste ' + Math.abs(interference) + ' ms ' + (interference >= 0 ? 'más' : 'menos') + ' cuando la palabra y la tinta no coincidían'
+              }, rate(interference, 100, 200,
+                ['Bueno', 'Moderado', 'Bajo'],
+                ['La palabra escrita apenas te frenó: ignoraste bien la información que distraía.',
+                  'La palabra escrita te frenó de forma moderada, algo esperable en esta tarea.',
+                  'La palabra escrita te frenó bastante. Ignorar información que compite requiere más esfuerzo.'])));
+            }
+            dims.push(accuracyDim(s));
+            if (s.meanRt !== null) {
+              dims.push(Object.assign({
+                name: 'Velocidad de elección',
+                value: Math.min(Math.round(s.meanRt / 15), 100),
+                detail: 'Tiempo medio en respuestas correctas: ' + Math.round(s.meanRt) + ' ms'
+              }, rate(s.meanRt, 850, 1100,
+                ['Rápida', 'Algo lenta', 'Lenta'],
+                ['Elegiste el color con rapidez.',
+                  'Tardaste un poco más de lo habitual en elegir el color.',
+                  'Tus respuestas fueron lentas. Puede deberse a cansancio, al dispositivo o a un estilo muy cuidadoso.'])));
+            }
+
+            const intro = interference === null
+              ? 'No hubo suficientes respuestas correctas para calcular el efecto Stroop.'
+              : 'Tardaste de media <strong>' + Math.round(rtCong) + ' ms</strong> cuando la palabra coincidía con la tinta y <strong>' +
+                Math.round(rtIncong) + ' ms</strong> cuando no coincidía: un efecto de interferencia de <strong>' + interference + ' ms</strong>. ' +
+                'Es normal tardar algo más en los casos que no coinciden, porque leer es casi automático y hay que frenarlo.';
+            return {
+              title: 'Resultados de Colores y palabras',
+              sub: 'Velocidad, precisión y control de la interferencia (efecto Stroop).',
+              metrics: [
+                { value: rtCong === null ? '—' : Math.round(rtCong) + '<small> ms</small>', label: 'Tiempo si coinciden' },
+                { value: rtIncong === null ? '—' : Math.round(rtIncong) + '<small> ms</small>', label: 'Tiempo si no coinciden' },
+                { value: interference === null ? '—' : (interference >= 0 ? '+' : '') + interference + '<small> ms</small>', label: 'Efecto de interferencia' },
+                { value: s.accuracy + '<small> %</small>', label: 'Precisión' }
+              ],
+              dims: dims,
+              summary: intro + flaggedSentence(dims) + PLAY_AGAIN_NOTE,
+              warning: CHOICE_WARNING
+            };
+          }
+        }
+      };
+
+      const INFO_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+      function renderChoiceIntro(cfg) {
+        $('choice-title').textContent = cfg.title;
+        $('choice-desc').innerHTML = cfg.desc;
+        $('choice-demo').innerHTML = cfg.demo;
+        const info = cfg.info.concat([
+          'Busca un lugar tranquilo y no cambies de pestaña durante el juego.',
+          'Es una actividad educativa: no detecta ni diagnostica ninguna condición.'
+        ]);
+        $('choice-info').innerHTML = info.map((t) => '<li>' + INFO_ICON + '<span>' + t + '</span></li>').join('');
+        $('choice-hint').textContent = cfg.hint;
+        $('choice-options').innerHTML = cfg.options.map((o) =>
+          '<button type="button" class="choice-btn" data-option="' + o.id + '" aria-label="' + escapeHTML(o.aria) + '">' + o.html + '</button>'
+        ).join('');
+      }
+
+      function updateChoiceProgress() {
+        const done = Math.max(game.index, 0);
+        const percent = Math.round((done / game.sequence.length) * 100);
+        $('choice-progress-fill').style.width = percent + '%';
+        $('choice-progressbar').setAttribute('aria-valuenow', percent);
+      }
+
+      function startChoice() {
+        clearGameTimers();
+        game.kind = 'choice';
+        game.sequence = CHOICE_GAMES[game.current].buildSequence();
+        game.results = [];
+        game.index = -1;
+        game.trial = null;
+        game.playing = true;
+
+        $('choice-total').textContent = game.sequence.length;
+        $('choice-current').textContent = 0;
+        updateChoiceProgress();
+        $('choice-stimulus').innerHTML = '';
+        $('choice-abort-notice').classList.add('hidden');
+        showGamePanel('choice-play');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        const msg = $('choice-message');
+        msg.className = 'game-message';
+        [3, 2, 1].forEach((n, i) => later(() => { msg.textContent = n; }, i * 800));
+        later(() => { msg.textContent = ''; nextChoiceTrial(); }, 2400);
+      }
+
+      function nextChoiceTrial() {
+        game.index++;
+        game.trial = null;
+        updateChoiceProgress();
+        if (game.index >= game.sequence.length) {
+          finishChoice();
+          return;
+        }
+        $('choice-current').textContent = game.index + 1;
+
+        // Cruz de fijación con duración variable para que no se pueda anticipar
+        const msg = $('choice-message');
+        msg.className = 'game-message fixation';
+        msg.textContent = '+';
+        const fixation = CHOICE_CONFIG.fixationMinMs + Math.random() * (CHOICE_CONFIG.fixationMaxMs - CHOICE_CONFIG.fixationMinMs);
+        later(() => {
+          msg.textContent = '';
+          msg.className = 'game-message';
+          const t = game.sequence[game.index];
+          $('choice-stimulus').innerHTML = t.html;
+          game.trial = { answer: t.answer, congruent: t.congruent, onset: performance.now(), chosen: null, correct: false, rt: null };
+          later(() => resolveChoice(null), CHOICE_CONFIG.timeoutMs);
+        }, fixation);
+      }
+
+      function resolveChoice(optionId) {
+        const t = game.trial;
+        if (!game.playing || !t) return;
+        game.trial = null;
+        clearGameTimers();
+
+        t.chosen = optionId;
+        if (optionId !== null) {
+          t.rt = performance.now() - t.onset;
+          t.correct = optionId === t.answer;
+        }
+        game.results.push(t);
+
+        $('choice-stimulus').innerHTML = '';
+        const msg = $('choice-message');
+        if (optionId === null) {
+          msg.className = 'game-message feedback-miss';
+          msg.textContent = '¡Tiempo!';
+        } else {
+          msg.className = 'game-message ' + (t.correct ? 'feedback-ok' : 'feedback-bad');
+          msg.textContent = t.correct ? '✓' : '✗';
+          const btn = document.querySelector('.choice-btn[data-option="' + optionId + '"]');
+          if (btn) {
+            btn.classList.add(t.correct ? 'right' : 'wrong');
+            setTimeout(() => btn.classList.remove('right', 'wrong'), CHOICE_CONFIG.feedbackMs);
+          }
+        }
+        later(() => {
+          msg.textContent = '';
+          msg.className = 'game-message';
+          nextChoiceTrial();
+        }, CHOICE_CONFIG.feedbackMs);
+      }
+
+      function finishChoice() {
+        stopGame();
+        showGameResult(CHOICE_GAMES[game.current].evaluate(game.results));
+      }
+
+      /* =========================================================
+         15. MANCHAS DE TINTA (ejercicio proyectivo, estilo Rorschach)
+         Las manchas se generan por código: no son las láminas clínicas.
+         ========================================================= */
+      const INK = '#1c1b22';
+      const RED = '#b83a32';
+
+      // loc: G = toda la mancha, D = una parte · cont: H humano, A animal, N naturaleza, O objeto, An anatomía
+      // conv: respuesta frecuente/convencional
+      const INK_PLATES = [
+        { seed: 11, colors: [INK], options: [
+          ['Un murciélago', 'G', 'A', true], ['Una mariposa', 'G', 'A', true], ['Una máscara', 'G', 'O', false],
+          ['Dos figuras bailando', 'G', 'H', false], ['Un hueso o una pelvis', 'G', 'An', false]] },
+        { seed: 23, colors: [INK, INK, RED], options: [
+          ['Dos animales tocándose las patas', 'G', 'A', true], ['Dos personas chocando las manos', 'G', 'H', false],
+          ['Fuego o una explosión', 'D', 'N', false], ['Una mariposa roja', 'D', 'A', false], ['Una lámpara', 'D', 'O', false]] },
+        { seed: 37, colors: [INK, INK, RED], options: [
+          ['Dos personas frente a frente', 'D', 'H', true], ['Un moño o lazo', 'D', 'O', false], ['Dos pájaros', 'D', 'A', false],
+          ['Un insecto', 'G', 'A', false], ['Un rostro', 'G', 'H', false]] },
+        { seed: 41, colors: [INK], options: [
+          ['Un gigante visto desde abajo', 'G', 'H', true], ['Una piel de animal', 'G', 'A', true], ['Un árbol', 'G', 'N', false],
+          ['Un par de botas', 'D', 'O', false], ['Una nube de tormenta', 'G', 'N', false]] },
+        { seed: 53, colors: [INK], options: [
+          ['Una mariposa', 'G', 'A', true], ['Un murciélago', 'G', 'A', true], ['Un ave en vuelo', 'G', 'A', false],
+          ['Dos cocodrilos', 'D', 'A', false], ['Una persona con capa', 'G', 'H', false]] },
+        { seed: 67, colors: [INK], options: [
+          ['Una piel de animal extendida', 'G', 'A', true], ['Una guitarra o violín', 'G', 'O', false], ['Un tótem', 'D', 'O', false],
+          ['Un barco visto desde arriba', 'G', 'O', false], ['La cabeza de un gato', 'D', 'A', false]] },
+        { seed: 79, colors: ['#4a4752'], options: [
+          ['Dos caras mirándose', 'D', 'H', true], ['Nubes', 'G', 'N', true], ['Dos niñas jugando', 'G', 'H', false],
+          ['Un mapa o una isla', 'G', 'N', false], ['Dos conejos', 'D', 'A', false]] },
+        { seed: 83, colors: ['#d97a8a', '#5b8fd1', '#e39a4f', '#7a6bb0'], options: [
+          ['Dos animales trepando a los lados', 'D', 'A', true], ['Una flor', 'G', 'N', false], ['Un escudo', 'G', 'O', false],
+          ['Un paisaje con montañas', 'G', 'N', false], ['Órganos del cuerpo', 'G', 'An', false]] },
+        { seed: 97, colors: ['#5fa86b', '#e3884f', '#d983a6'], options: [
+          ['Fuego o una explosión', 'G', 'N', false], ['Dos magos o brujas', 'D', 'H', false], ['Una flor o una planta', 'G', 'N', true],
+          ['Un violín', 'D', 'O', false], ['Un rostro con barba', 'G', 'H', false]] },
+        { seed: 101, colors: ['#e0a93b', '#4f9ad6', '#d65c5c', '#6cb36f', '#9b7ad1'], options: [
+          ['Un cangrejo o una araña', 'D', 'A', true], ['Un fondo marino con animales', 'G', 'N', false], ['Fuegos artificiales', 'G', 'N', false],
+          ['Una cara con bigote', 'G', 'H', false], ['Insectos de colores', 'D', 'A', false]] }
+      ];
+
+      const INK_DETERMINANTS = [
+        { id: 'F', label: 'Su forma' },
+        { id: 'M', label: 'Parece moverse o hacer algo' },
+        { id: 'C', label: 'Sus colores', colorOnly: true },
+        { id: 'T', label: 'Las sombras o la textura' }
+      ];
+
+      const ink = { index: 0, rotation: 0, shownAt: 0, firstAt: null, answers: [], current: null };
+
+      // Generador pseudoaleatorio con semilla: cada lámina siempre se dibuja igual
+      function seededRandom(seed) {
+        let a = seed;
+        return function () {
+          a |= 0; a = (a + 0x6D2B79F5) | 0;
+          let t = Math.imul(a ^ (a >>> 15), 1 | a);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      function hexToRgb(hex) {
+        const n = parseInt(hex.slice(1), 16);
+        return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+      }
+
+      // Dibuja una mancha simétrica: se calcula la mitad derecha y se refleja.
+      // La tinta se forma con "ramas" de gotas que salen del eje central,
+      // salpicaduras sueltas y algunos huecos en blanco.
+      function drawInkblot(canvas, plate) {
+        const size = canvas.width;
+        const ctx = canvas.getContext('2d');
+        const img = ctx.createImageData(size, size);
+        const rnd = seededRandom(plate.seed);
+        const palette = plate.colors.map(hexToRgb);
+
+        const blobs = [];
+        const branches = 4 + Math.floor(rnd() * 3);
+        for (let b = 0; b < branches; b++) {
+          const color = palette[b % palette.length];
+          let x = rnd() * 0.05;
+          let y = 0.25 + rnd() * 0.5;
+          let angle = (rnd() - 0.5) * Math.PI * 1.4;
+          let r = 0.07 + rnd() * 0.05;
+          const steps = 6 + Math.floor(rnd() * 6);
+          for (let s = 0; s < steps; s++) {
+            blobs.push({ x: x, y: y, r: r, c: color, sign: 1 });
+            angle += (rnd() - 0.5) * 1.1;
+            const step = 0.025 + rnd() * 0.03;
+            x = Math.min(0.42, Math.max(0, x + Math.abs(Math.cos(angle)) * step));
+            y = Math.min(0.9, Math.max(0.1, y + Math.sin(angle) * step));
+            r *= 0.8 + rnd() * 0.15;
+            if (r < 0.018) break;
+          }
+        }
+        const splatters = 6 + Math.floor(rnd() * 8);
+        for (let i = 0; i < splatters; i++) {
+          blobs.push({
+            x: 0.08 + rnd() * 0.36, y: 0.1 + rnd() * 0.8, r: 0.008 + rnd() * 0.016,
+            c: palette[Math.floor(rnd() * palette.length)], sign: 1
+          });
+        }
+        const holes = 2 + Math.floor(rnd() * 3);
+        for (let i = 0; i < holes; i++) {
+          blobs.push({ x: 0.02 + rnd() * 0.2, y: 0.25 + rnd() * 0.5, r: 0.025 + rnd() * 0.03, c: null, sign: -1.6 });
+        }
+
+        // Ondulaciones para bordes irregulares, como tinta absorbida por el papel
+        const w1 = rnd() * 6, w2 = rnd() * 6, w3 = rnd() * 6;
+        const half = size / 2;
+        for (let py = 0; py < size; py++) {
+          const y0 = py / size;
+          for (let px = 0; px < half; px++) {
+            const x0 = (half - px) / size;
+            const nx = x0 + 0.010 * Math.sin(y0 * 57 + w1) + 0.005 * Math.sin(y0 * 140 + w2);
+            const ny = y0 + 0.010 * Math.sin(x0 * 61 + w3) + 0.005 * Math.sin(x0 * 150 + w1);
+            let field = 0;
+            let best = 0;
+            let color = palette[0];
+            for (let b = 0; b < blobs.length; b++) {
+              const blob = blobs[b];
+              const dx = nx - blob.x;
+              const dy = ny - blob.y;
+              const d2 = dx * dx + dy * dy;
+              const r2 = blob.r * blob.r;
+              if (d2 >= r2) continue;
+              const k = 1 - d2 / r2;
+              const v = k * k * blob.sign;
+              field += v;
+              if (v > best) { best = v; color = blob.c; }
+            }
+            if (field < 0.3) continue;
+            const edge = Math.min(1, (field - 0.3) / 0.08);
+            // Densidad irregular de la tinta
+            const density = 0.82 + 0.12 * Math.sin(nx * 95 + w2) * Math.sin(ny * 83 + w3) + Math.min(0.06, field * 0.03);
+            const alpha = Math.round(255 * edge * Math.min(1, density));
+            [px, size - 1 - px].forEach((x) => {
+              const i = (py * size + x) * 4;
+              img.data[i] = color[0];
+              img.data[i + 1] = color[1];
+              img.data[i + 2] = color[2];
+              img.data[i + 3] = alpha;
+            });
+          }
+        }
+        ctx.clearRect(0, 0, size, size);
+        ctx.putImageData(img, 0, 0);
+      }
+
+      function startInk() {
+        game.kind = 'ink';
+        ink.index = 0;
+        ink.answers = [];
+        $('ink-total').textContent = INK_PLATES.length;
+        showGamePanel('ink-play');
+        renderInkPlate();
+      }
+
+      function renderInkPlate() {
+        const plate = INK_PLATES[ink.index];
+        const isColor = plate.colors.some((c) => c !== INK && c !== '#4a4752');
+        ink.rotation = 0;
+        ink.rotations = 0;
+        ink.shownAt = performance.now();
+        ink.firstAt = null;
+        ink.current = { option: null, det: null, isColor: isColor };
+
+        $('ink-current').textContent = ink.index + 1;
+        const percent = Math.round((ink.index / INK_PLATES.length) * 100);
+        $('ink-progress-fill').style.width = percent + '%';
+        $('ink-progressbar').setAttribute('aria-valuenow', percent);
+
+        const canvas = $('ink-canvas');
+        canvas.style.transform = 'rotate(0deg)';
+        drawInkblot(canvas, plate);
+
+        const opts = plate.options.map((o, i) => ({ value: String(i), text: o[0] }))
+          .concat([{ value: 'other', text: 'Otra cosa (escribir)' }, { value: 'none', text: 'No veo nada en particular' }]);
+        $('ink-options').innerHTML = opts.map((o) =>
+          '<button type="button" class="option" role="radio" aria-checked="false" data-ink-option="' + o.value + '">' +
+          '<span class="option-label"><strong>' + escapeHTML(o.text) + '</strong></span></button>'
+        ).join('');
+
+        const dets = INK_DETERMINANTS.filter((d) => !d.colorOnly || isColor);
+        $('ink-det').innerHTML = dets.map((d) =>
+          '<button type="button" class="option" role="radio" aria-checked="false" data-ink-det="' + d.id + '">' +
+          '<span class="option-label"><strong>' + escapeHTML(d.label) + '</strong></span></button>'
+        ).join('');
+
+        $('ink-other').value = '';
+        $('ink-other').classList.add('hidden');
+        $('ink-det-block').classList.add('hidden');
+        $('btn-ink-next-label').textContent = ink.index === INK_PLATES.length - 1 ? 'Ver informe' : 'Siguiente lámina';
+        updateInkNext();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function markSelected(container, attr, value) {
+        container.querySelectorAll('.option').forEach((el) => {
+          const active = el.getAttribute(attr) === value;
+          el.classList.toggle('selected', active);
+          el.setAttribute('aria-checked', active ? 'true' : 'false');
+        });
+      }
+
+      function chooseInkOption(value) {
+        if (ink.firstAt === null) ink.firstAt = performance.now();
+        ink.current.option = value;
+        markSelected($('ink-options'), 'data-ink-option', value);
+        const other = $('ink-other');
+        other.classList.toggle('hidden', value !== 'other');
+        if (value === 'other') other.focus();
+        $('ink-det-block').classList.toggle('hidden', value === 'none');
+        if (value === 'none') ink.current.det = null;
+        updateInkNext();
+      }
+
+      function chooseInkDet(value) {
+        ink.current.det = value;
+        markSelected($('ink-det'), 'data-ink-det', value);
+        updateInkNext();
+      }
+
+      function updateInkNext() {
+        const c = ink.current;
+        let ok = c.option !== null;
+        if (ok && c.option !== 'none') ok = c.det !== null;
+        if (ok && c.option === 'other') ok = $('ink-other').value.trim().length > 0;
+        $('btn-ink-next').disabled = !ok;
+      }
+
+      function nextInkPlate() {
+        const plate = INK_PLATES[ink.index];
+        const c = ink.current;
+        let answer;
+        if (c.option === 'none') {
+          answer = { text: 'No veo nada en particular', loc: null, cont: null, conv: false, det: null, rejected: true };
+        } else if (c.option === 'other') {
+          answer = { text: $('ink-other').value.trim(), loc: null, cont: 'Otro', conv: false, det: c.det, rejected: false };
+        } else {
+          const o = plate.options[Number(c.option)];
+          answer = { text: o[0], loc: o[1], cont: o[2], conv: o[3], det: c.det, rejected: false };
+        }
+        answer.plate = ink.index + 1;
+        answer.isColor = c.isColor;
+        answer.rotations = ink.rotations;
+        answer.rt = ((ink.firstAt || performance.now()) - ink.shownAt) / 1000;
+        ink.answers.push(answer);
+
+        ink.index++;
+        if (ink.index < INK_PLATES.length) renderInkPlate();
+        else finishInk();
+      }
+
+      function pct(part, total) {
+        return total ? Math.round((part / total) * 100) : 0;
+      }
+
+      function inkDim(name, value, detail, lowMax, midMax, labels, texts, phrases) {
+        // Todas las dimensiones son descriptivas: ningún estilo es mejor que otro
+        const r = rate(value, lowMax, midMax, labels, texts);
+        const phrase = phrases[['low', 'mid', 'high'].indexOf(r.key)];
+        return { name: name, value: Math.max(value, 2), detail: detail, key: 'neutral', label: r.label, text: r.text, phrase: phrase };
+      }
+
+      function finishInk() {
+        const all = ink.answers;
+        const answered = all.filter((a) => !a.rejected);
+        const located = answered.filter((a) => a.loc);
+        const colorAnswered = answered.filter((a) => a.isColor);
+        const n = answered.length;
+
+        const globalPct = pct(located.filter((a) => a.loc === 'G').length, located.length);
+        const convPct = pct(answered.filter((a) => a.conv).length, n);
+        const movePct = pct(answered.filter((a) => a.det === 'M').length, n);
+        const colorPct = pct(colorAnswered.filter((a) => a.det === 'C').length, colorAnswered.length);
+        const humanPct = pct(answered.filter((a) => a.cont === 'H').length, n);
+        const rejected = all.length - n;
+        const meanRt = mean(all.map((a) => a.rt));
+        const rotations = all.reduce((acc, a) => acc + a.rotations, 0);
+
+        const dims = [];
+        if (located.length) {
+          dims.push(inkDim('Enfoque perceptivo', globalPct, globalPct + '% de respuestas usan la mancha completa', 39, 60,
+            ['Detallista', 'Equilibrado', 'Global'],
+            ['Tiendes a fijarte en partes concretas de la mancha más que en el conjunto.',
+              'Alternas entre ver la mancha completa y fijarte en detalles.',
+              'Tiendes a interpretar la mancha como un todo, buscando una idea que integre el conjunto.'],
+            ['un enfoque detallista', 'un enfoque equilibrado entre el todo y las partes', 'un enfoque global']));
+        }
+        if (n) {
+          dims.push(inkDim('Convencionalidad', convPct, convPct + '% de respuestas frecuentes', 19, 40,
+            ['Original', 'Mixta', 'Convencional'],
+            ['Elegiste sobre todo interpretaciones poco habituales o propias: un estilo más personal e imaginativo.',
+              'Combinaste respuestas habituales con otras más personales.',
+              'Elegiste a menudo las interpretaciones que más gente suele ver: un estilo práctico y compartido.'],
+            ['respuestas mayormente personales', 'una mezcla de respuestas habituales y personales', 'respuestas mayormente convencionales']));
+          dims.push(inkDim('Movimiento e imaginación', movePct, movePct + '% de respuestas con movimiento', 9, 30,
+            ['Centrado en la forma', 'Moderado', 'Imaginativo'],
+            ['Te apoyaste más en la forma de la mancha que en imaginar acciones.',
+              'En algunas láminas imaginaste figuras en movimiento o haciendo algo.',
+              'A menudo imaginaste figuras en movimiento: le diste vida y acción a lo que veías.'],
+            ['poco movimiento imaginado', 'algo de movimiento imaginado', 'mucho movimiento imaginado']));
+        }
+        if (colorAnswered.length) {
+          dims.push(inkDim('Influencia del color', colorPct, colorPct + '% de respuestas basadas en el color (láminas de color)', 14, 40,
+            ['Poco influido', 'Moderado', 'Sensible al color'],
+            ['En las láminas de color te guiaste más por la forma que por los colores.',
+              'El color influyó en algunas de tus respuestas.',
+              'El color guió muchas de tus respuestas en las láminas coloreadas.'],
+            ['poca influencia del color', 'una influencia moderada del color', 'una fuerte influencia del color']));
+        }
+        if (n) {
+          dims.push(inkDim('Figuras humanas', humanPct, humanPct + '% de respuestas con personas o rostros', 9, 30,
+            ['Pocas', 'Algunas', 'Frecuentes'],
+            ['Viste pocas personas o rostros; predominaron animales, objetos o paisajes.',
+              'Viste personas o rostros en algunas láminas.',
+              'Viste personas o rostros con frecuencia en las manchas.'],
+            ['pocas figuras humanas', 'algunas figuras humanas', 'muchas figuras humanas']));
+        }
+
+        const styleWords = dims.map((d) => '<strong>' + d.phrase + '</strong>');
+        let summary = n === 0
+          ? 'No elegiste ninguna interpretación, por lo que no es posible describir un estilo de respuesta. Puedes repetir el ejercicio dejando volar un poco más la imaginación.'
+          : 'Respondiste ' + n + ' de ' + all.length + ' láminas con un tiempo medio de ' + meanRt.toFixed(1).replace('.', ',') + ' s hasta tu primera elección. ' +
+            'En conjunto, mostraste ' + joinList(styleWords) + '.';
+        if (rejected > 0) {
+          summary += ' En ' + rejected + (rejected === 1 ? ' lámina' : ' láminas') + ' preferiste no ver nada en particular.';
+        }
+        if (rotations > 0) {
+          summary += ' Giraste las láminas ' + rotations + (rotations === 1 ? ' vez' : ' veces') + ', buscando otras perspectivas.';
+        }
+        summary += ' Estos rasgos describen cómo respondiste hoy a estas manchas; no son buenos ni malos y no definen tu personalidad.';
+
+        const rows = all.map((a) =>
+          '<tr><td>Lámina ' + a.plate + '</td><td>' + escapeHTML(a.text) + '</td><td>' +
+          escapeHTML(a.det ? INK_DETERMINANTS.find((d) => d.id === a.det).label : '—') + '</td></tr>'
+        ).join('');
+
+        showGameResult({
+          title: 'Informe de las manchas de tinta',
+          sub: 'Descripción de tu estilo de respuesta en el ejercicio proyectivo.',
+          metrics: [
+            { value: n + '<small> / ' + all.length + '</small>', label: 'Láminas interpretadas' },
+            { value: meanRt.toFixed(1).replace('.', ',') + '<small> s</small>', label: 'Tiempo medio hasta responder' },
+            { value: pct(answered.filter((a) => !a.conv).length, n) + '<small> %</small>', label: 'Respuestas personales' },
+            { value: rotations, label: 'Giros de lámina' }
+          ],
+          dims: dims,
+          summary: summary,
+          extra: '<h3 class="section-title">Tus respuestas</h3>' +
+            '<table class="ink-table"><thead><tr><th>Lámina</th><th>Lo que viste</th><th>Por qué</th></tr></thead><tbody>' + rows + '</tbody></table>',
+          warning: '<strong>Aviso:</strong> este ejercicio está <strong>inspirado</strong> en el test de Rorschach, pero usa manchas generadas por ordenador ' +
+            'y una interpretación simplificada con fines educativos y de entretenimiento. <strong>No es el test de Rorschach, no evalúa la personalidad ' +
+            'y no diagnostica ninguna condición.</strong> El Rorschach real solo puede aplicarlo e interpretarlo un psicólogo formado, con láminas originales ' +
+            'y sistemas de puntuación estandarizados, e incluso así su validez es objeto de debate científico.'
+        });
+      }
+
+      /* =========================================================
+         16. MENÚ DE JUEGOS
+         ========================================================= */
+      const GAMES_MENU = [
+        {
+          id: 'gonogo',
+          name: 'Go/No-Go',
+          meta: 'Atención e impulsividad · 2 min',
+          desc: 'Responde solo al círculo azul y frena ante el cuadrado rojo.',
+          icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>'
+        },
+        {
+          id: 'flechas',
+          name: 'Flechas rápidas',
+          meta: 'Velocidad de elección · 4 opciones · 1,5 min',
+          desc: 'Elige lo más rápido posible la flecha que apunta en la misma dirección.',
+          icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>'
+        },
+        {
+          id: 'stroop',
+          name: 'Colores y palabras',
+          meta: 'Interferencia (Stroop) · 4 opciones · 1,5 min',
+          desc: 'Indica el color de la tinta, no lo que dice la palabra.',
+          icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>'
+        },
+        {
+          id: 'manchas',
+          name: 'Manchas de tinta',
+          meta: 'Ejercicio proyectivo estilo Rorschach · 10 láminas · 4 min',
+          desc: 'Di qué te sugiere cada mancha y recibe un informe de tu estilo de respuesta.',
+          icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-1.5 2-4 3-4 6a4 4 0 0 0 8 0c0-3-2.5-4-4-6z"/><path d="M5 14c-1 1-2 2-2 3.5A2.5 2.5 0 0 0 7.5 18"/><path d="M19 14c1 1 2 2 2 3.5a2.5 2.5 0 0 1-4.5 .5"/><path d="M12 15v6"/></svg>'
+        }
+      ];
+
+      document.querySelectorAll('[data-games-list]').forEach((list) => {
+        list.innerHTML = GAMES_MENU.map((g) =>
+          '<div class="game-item">' +
+            '<div class="game-cta-icon" aria-hidden="true">' + g.icon + '</div>' +
+            '<div><h3>' + escapeHTML(g.name) + '</h3><span class="game-meta">' + escapeHTML(g.meta) + '</span>' +
+            '<p>' + escapeHTML(g.desc) + '</p></div>' +
+            '<button type="button" class="btn btn-secondary" data-open-game="' + g.id + '">Jugar</button>' +
+          '</div>'
+        ).join('');
+      });
+
+      /* =========================================================
+         16. EVENTOS
          ========================================================= */
       modeButtons.forEach((btn) => {
         btn.addEventListener('click', () => selectMode(btn.dataset.mode));
@@ -1697,28 +2721,68 @@
         }
       });
 
-      // Juego de atención
+      // Juegos
       document.querySelectorAll('[data-open-game]').forEach((btn) => {
         btn.addEventListener('click', () => {
-          openGame(screens.results.classList.contains('hidden') ? 'welcome' : 'results');
+          openGame(btn.dataset.openGame, screens.results.classList.contains('hidden') ? 'welcome' : 'results');
         });
       });
       $('btn-game-start').addEventListener('click', startGame);
-      $('btn-game-retry').addEventListener('click', startGame);
+      $('btn-choice-start').addEventListener('click', startChoice);
+      $('btn-game-retry').addEventListener('click', retryGame);
       $('btn-game-back').addEventListener('click', exitGame);
       $('btn-game-exit').addEventListener('click', exitGame);
+      document.querySelectorAll('[data-game-exit]').forEach((btn) => btn.addEventListener('click', exitGame));
       $('btn-game-cancel').addEventListener('click', () => {
         stopGame();
         showGamePanel('intro');
+      });
+      $('btn-choice-cancel').addEventListener('click', () => {
+        stopGame();
+        showGamePanel('choice-intro');
       });
       $('game-area').addEventListener('pointerdown', (e) => {
         e.preventDefault();
         gameRespond();
       });
-      document.addEventListener('keydown', (e) => {
-        if (!game.playing || (e.code !== 'Space' && e.key !== ' ')) return;
+      // Manchas de tinta
+      $('btn-ink-start').addEventListener('click', startInk);
+      $('btn-ink-next').addEventListener('click', nextInkPlate);
+      $('btn-ink-cancel').addEventListener('click', () => showGamePanel('ink-intro'));
+      $('btn-ink-rotate').addEventListener('click', () => {
+        ink.rotation += 90;
+        ink.rotations++;
+        $('ink-canvas').style.transform = 'rotate(' + ink.rotation + 'deg)';
+      });
+      $('ink-options').addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-ink-option]');
+        if (btn) chooseInkOption(btn.dataset.inkOption);
+      });
+      $('ink-det').addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-ink-det]');
+        if (btn) chooseInkDet(btn.dataset.inkDet);
+      });
+      $('ink-other').addEventListener('input', updateInkNext);
+
+      // pointerdown en lugar de click: registra el toque sin el retraso del click
+      $('choice-options').addEventListener('pointerdown', (e) => {
+        const btn = e.target.closest('.choice-btn');
+        if (!btn) return;
         e.preventDefault();
-        if (!e.repeat) gameRespond();
+        resolveChoice(btn.dataset.option);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (!game.playing) return;
+        if (game.kind === 'gonogo') {
+          if (e.code !== 'Space' && e.key !== ' ') return;
+          e.preventDefault();
+          if (!e.repeat) gameRespond();
+        } else {
+          const opt = CHOICE_GAMES[game.current].options.find((o) => o.key === e.key);
+          if (!opt) return;
+          e.preventDefault();
+          if (!e.repeat) resolveChoice(opt.id);
+        }
       });
       // Cambiar de pestaña invalida los tiempos: se interrumpe la partida
       document.addEventListener('visibilitychange', () => {

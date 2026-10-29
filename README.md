@@ -27,7 +27,12 @@ Aplicación web de página única que aplica un **test psicotécnico de cribado*
   - aviso legal destacado,
   - alerta de ayuda inmediata si se indican pensamientos de autolesión,
   - opción de imprimir o guardar como PDF.
-- **Juego de atención (opcional, ~2 min):** tarea Go/No-Go de 60 figuras (75 % "responder", 25 % "no responder"). Mide tiempo de reacción medio, omisiones (atención sostenida), errores de impulsividad (control inhibitorio) y variabilidad de respuesta. Es educativo: no detecta ni diagnostica TDAH.
+- **Juegos de atención y velocidad (opcionales):** todos son educativos y no diagnostican ninguna condición.
+  - **Go/No-Go (~2 min):** 60 figuras (75 % "responder", 25 % "no responder"). Mide tiempo de reacción, omisiones (atención sostenida), errores de impulsividad y variabilidad.
+  - **Flechas rápidas (~1,5 min):** tiempo de reacción de elección con 4 opciones (botones o flechas del teclado). Mide velocidad, precisión y estabilidad.
+  - **Colores y palabras (~1,5 min):** tarea tipo Stroop con 4 opciones (botones o teclas 1–4). Mide el efecto de interferencia entre ensayos congruentes e incongruentes.
+  - **Manchas de tinta (~4 min):** ejercicio proyectivo al estilo Rorschach con 10 manchas simétricas **generadas por código** (no son las láminas clínicas). Se elige qué sugiere cada mancha y por qué (forma, movimiento, color o textura), con opción de girar la lámina o escribir una respuesta propia. El informe describe el estilo de respuesta (enfoque global/detallista, convencionalidad, movimiento, color y figuras humanas) sin evaluar la personalidad.
+  - Las partidas cronometradas se interrumpen si se cambia de pestaña, para que los tiempos sean válidos.
 - **Privacidad:** todo se procesa en el navegador; no se envía ningún dato a un servidor.
 - **Diseño responsivo** (mobile-first) y accesible: roles ARIA, foco visible y respeto por `prefers-reduced-motion`.
 
